@@ -7,9 +7,12 @@
 //
 
 #include <iostream>
+#include "Headers/terrain.h"
 
 int main(int argc, const char * argv[]) {
     // insert code here...
+
+    Terrain t {5,3};
     std::cout << "Hello, World!\n";
     return 0;
 }

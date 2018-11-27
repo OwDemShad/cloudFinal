@@ -10,12 +10,20 @@
 #define terrain_h
 
 #include <vector>
-#include "case.h"
+#include "../Headers/case.h"
 
 class Terrain
 {
 public:
-    Terrain (int nbColonnes, int nbLignes);
+    Terrain (int nbLignes, int nbColonnes);
+
+    /**
+     * Initialisation du terrain avec les murs
+     */
+    void initTerrain();
+
+
+
     
     
 private:
