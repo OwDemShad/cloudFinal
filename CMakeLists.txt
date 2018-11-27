@@ -3,5 +3,5 @@ project(untitled1)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(untitled1 main.cpp case.cpp case.h element.cpp element.h
-        laser.cpp laser.h miroir.cpp miroir.h terrain.cpp terrain.h)
+add_executable(untitled1 main.cpp Sources/case.cpp Headers/case.h Sources/element.cpp Headers/element.h
+        Sources/laser.cpp Headers/laser.h Sources/miroir.cpp Headers/miroir.h Sources/terrain.cpp Headers/terrain.h)
