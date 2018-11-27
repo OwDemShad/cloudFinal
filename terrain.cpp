@@ -6,4 +6,4 @@
 //  Copyright © 2018 Thibaud B. All rights reserved.
 //
 
-#include "terrain.hpp"
+#include "terrain.h"

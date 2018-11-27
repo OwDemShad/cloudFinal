@@ -6,8 +6,8 @@
 //  Copyright © 2018 Thibaud B. All rights reserved.
 //
 
-#ifndef case_hpp
-#define case_hpp
+#ifndef case_h
+#define case_h
 
 class Element;
 
@@ -23,4 +23,4 @@ private:
     Element* d_element;
 };
 
-#endif /* case_hpp */
+#endif /* case_h */

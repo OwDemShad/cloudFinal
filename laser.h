@@ -6,8 +6,8 @@
 //  Copyright © 2018 Thibaud B. All rights reserved.
 //
 
-#ifndef laser_hpp
-#define laser_hpp
+#ifndef laser_h
+#define laser_h
 
 class Laser
 {
@@ -20,4 +20,4 @@ private:
     int d_x, d_y; //coordonnées du laser
 };
 
-#endif /* laser_hpp */
+#endif /* laser_h */

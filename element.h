@@ -6,8 +6,8 @@
 //  Copyright © 2018 Thibaud B. All rights reserved.
 //
 
-#ifndef element_hpp
-#define element_hpp
+#ifndef element_h
+#define element_h
 
 class Element
 {
@@ -21,4 +21,4 @@ private:
     //rien = 0, mur = 1, miroir = 2, cible = 3
 };
 
-#endif /* element_hpp */
+#endif /* element_h */

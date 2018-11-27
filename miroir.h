@@ -6,10 +6,10 @@
 //  Copyright © 2018 Thibaud B. All rights reserved.
 //
 
-#ifndef miroir_hpp
-#define miroir_hpp
+#ifndef miroir_h
+#define miroir_h
 
-#include "element.hpp"
+#include "element.h"
 
 class Miroir : public Element
 {
@@ -21,4 +21,4 @@ private:
     bool d_orientationMiroir; // \0  /1
 };
 
-#endif /* miroir_hpp */
+#endif /* miroir_h */

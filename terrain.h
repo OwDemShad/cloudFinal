@@ -6,10 +6,11 @@
 //  Copyright © 2018 Thibaud B. All rights reserved.
 //
 
-#ifndef terrain_hpp
-#define terrain_hpp
+#ifndef terrain_h
+#define terrain_h
 
 #include <vector>
+#include "case.h"
 
 class Terrain
 {
@@ -21,4 +22,4 @@ private:
     std::vector<std::vector<Case*>> d_terrain;
 };
 
-#endif /* terrain_hpp */
+#endif /* terrain_h */
