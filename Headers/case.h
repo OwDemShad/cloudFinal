@@ -9,4 +9,12 @@
 #ifndef case_h
 #define case_h
 
+class Case
+{
+public:
+    Case(bool murHaut, bool murDroit, bool murBas, bool murGauche);
+private:
+    bool d_murHaut, d_murDroit, d_murBas, d_murGauche;
+};
+
 #endif /* case_h */
