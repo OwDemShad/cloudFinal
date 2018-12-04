@@ -53,11 +53,19 @@ public:
     virtual void placeElement(int element, const Position &pos) = 0;
 
     /**
+     * Indique s'il y a un mur a la position donnee
+     * @param pos[in] - position a tester
+     * @return boolean - vrai s'il y a un mur, faux sinon
+     */
+    virtual bool estMur(const Position &pos) const = 0;
+
+    /**
      * Indique le type de miroir a la position donnee
      * @param pos - position a tester
      * @return int - 0 : pas de miroir, 1 : \, 2 : /, 3 : \ (semi-miroir); 4 : / (semi-miroir)
      */
     virtual int typeMiroir(const Position &pos) const = 0;
+
     /**
      * Indique si le jeu est termine
      * Le jeu est termine si le laser ne peut plus avancer, ou s'il a touche toutes les cibles

@@ -8,5 +8,6 @@
 
 #include "../Headers/case.h"
 
-Case::Case(bool murHaut, bool murDroit, bool murBas, bool murGauche) : d_murHaut{murHaut}, d_murDroit{murDroit}
+Case::Case(bool murHaut, bool murDroit, bool murBas, bool murGauche) : d_murHaut{murHaut}, d_murDroit{murDroit},
+                                                                       d_murBas{murBas}, d_murGauche{murGauche}
 {}

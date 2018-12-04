@@ -7,12 +7,19 @@
 
 
 #include "terrain.h"
+#include "terrainMursPleins.h"
+#include "terrainMursFins.h"
 
 class Affichage
 {
 public:
-    void afficherTerrain(const Terrain &terrain) const ;
+    Affichage(int longueur, int largeur);
+    void afficherTerrainMursPleins(const TerrainMursPleins &terrain) const ;
+    void afficherTerrainMursFins(const TerrainMursFins &terrain) const ;
+    void update();
 private:
+    int d_longueur, d_largeur;  // taille de la fenetre
+    const unsigned int d_tailleCase = 50;
 };
 
 

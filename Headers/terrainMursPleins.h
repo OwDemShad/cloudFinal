@@ -48,7 +48,7 @@ public:
      * @param pos - position a tester
      * @return boolean - vrai s'il y a un mur a la position pos
      */
-    bool estMur(const Position &pos) const ;
+    virtual bool estMur(const Position &pos) const override ;
 
     /**
      * Indique le type de miroir a la position donnee
