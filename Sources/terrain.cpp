@@ -12,7 +12,8 @@
 #include "../Headers/case.h"
 
 
-
+Terrain::Terrain() : d_longueur{0}, d_hauteur{0}, d_nbMiroirs{0}, d_nbSemiMiroirs{0}, d_nbCibles{0}, d_terrain{}
+{}
 
 Terrain::Terrain(int longueur, int hauteur, int nbMiroirs, int nbSemiMiroirs, int nbCibles) :
     d_longueur{longueur}, d_hauteur{hauteur}, d_nbMiroirs{nbMiroirs}, d_nbSemiMiroirs{nbSemiMiroirs}, d_nbCibles{nbCibles},
@@ -26,6 +27,30 @@ Terrain::~Terrain() {
 
 }
 
+std::vector<std::vector<Element>>& Terrain::terrain() {
+    return d_terrain;
+}
+
+
+// TEST
+void Terrain::print(std::ostream &ost) const
+{
+    ost << "Longueur : " << d_longueur << " Hauteur : " << d_hauteur << std::endl;
+    ost << "Nb miroirs : " << d_nbMiroirs << " Nb semi miroirs : " << d_nbSemiMiroirs << std::endl;
+    ost << "Nb cibles : " << d_nbCibles << std::endl;
+
+    for(int i = 0; i < d_terrain.size(); ++i)
+    {
+        for(int j = 0; j < d_terrain[i].size(); ++j)
+        {
+            std::cout << d_terrain[i][j].valeur() << " ";
+        }
+
+        std::cout << std::endl;
+    }
+}
+
+/*
 void Terrain::charger(const std::string &nomFichier)
 {
     std::ifstream f (nomFichier);
@@ -75,5 +100,5 @@ void Terrain::charger(const std::string &nomFichier)
     }
 
 }
-
+*/
 

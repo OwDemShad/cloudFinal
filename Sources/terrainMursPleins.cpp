@@ -4,12 +4,11 @@
 
 #include "../Headers/terrainMursPleins.h"
 
-TerrainMursPleins::TerrainMursPleins(int longueur, int hauteur, int nbMiroirs, int nbSemiMiroirs, int nbCibles) : Terrain{longueur, hauteur, nbMiroirs, nbSemiMiroirs, nbCibles}, d_terrain{}
-{
+TerrainMursPleins::TerrainMursPleins() : Terrain{}
+{}
 
-}
-
-
+TerrainMursPleins::TerrainMursPleins(int longueur, int hauteur, int nbMiroirs, int nbSemiMiroirs, int nbCibles) : Terrain{longueur, hauteur, nbMiroirs, nbSemiMiroirs, nbCibles}
+{}
 
 bool TerrainMursPleins::caseSuivanteEstLibre(const Position &pos, int direction) const
 {
@@ -42,19 +41,15 @@ void TerrainMursPleins::placeElement(int element, const Position &pos)
 
 bool TerrainMursPleins::estMur(const Position &pos) const
 {
-    return d_terrain[pos.x()][pos.y()] == 1;
+    return d_terrain[pos.x()][pos.y()].valeur() == 1;
 }
 
 int TerrainMursPleins::typeMiroir(const Position &pos) const
 {
-    return d_terrain[pos.x()][pos.y()];
+    return d_terrain[pos.x()][pos.y()].valeur();
 }
 
 bool TerrainMursPleins::fin() const
 {
 
 }
-
-
-
-

@@ -13,6 +13,11 @@ class TerrainMursPleins : public Terrain
 {
 public:
     /**
+     * Constructeur vide d'un TerrainMursPleins (pour le chargement d'un fichier)
+     */
+    TerrainMursPleins();
+
+    /**
      * Constructeur d'un terrain avec murs pleins
      */
     TerrainMursPleins(int longueur, int hauteur, int nbMiroirs, int nbSemiMiroirs, int nbCibles);    // inutile mais ça compile pas sinon
@@ -60,7 +65,6 @@ public:
     virtual bool fin() const override ;
 private:
     // tableau 2D de int car les classes elements sont inutiles
-    std::vector< std::vector<int> > d_terrain;
 };
 
 

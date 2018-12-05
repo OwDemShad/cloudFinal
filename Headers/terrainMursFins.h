@@ -14,7 +14,6 @@ class TerrainMursFins : public Terrain
 public:
     TerrainMursFins(int longueur, int hauteur, int nbMiroirs, int nbSemiMiroirs, int nbCibles);
 private:
-    std::vector< std::vector<Case*> > d_terrain;
 };
 
 

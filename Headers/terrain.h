@@ -18,7 +18,7 @@ class Terrain
 {
 public:
 
-
+    Terrain();
 
     /**
      * Constructeur de terrain : cree un terrain vide (classe abstraite)
@@ -39,7 +39,13 @@ public:
      * Initialise un terrain depuis un fichier ou est enregistre la configuration du terrain
      * @param ifst - fichier à charger
      */
-    virtual void charger(const std::string &nomFichier);
+    //virtual void charger(const std::string &nomFichier);
+
+    /**
+     * Retourne par reference la donnee privee d_terrain
+     * @return std::vector<std::vector<Element>>&
+     */
+    std::vector<std::vector<Element>>& terrain();
 
     /**
      * Indique si la case suivante est libre selon une position et une direction
@@ -77,6 +83,9 @@ public:
      * @return boolean - vrai si le jeu est termine
      */
     virtual bool fin() const = 0;
+
+    // TESTS
+    void print(std::ostream &ost) const;
 
 protected:
     int d_longueur, d_hauteur;
