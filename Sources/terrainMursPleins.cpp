@@ -9,10 +9,7 @@ TerrainMursPleins::TerrainMursPleins(int longueur, int hauteur, int nbMiroirs, i
 
 }
 
-void TerrainMursPleins::charger(const std::ifstream &ifst)
-{
 
-}
 
 bool TerrainMursPleins::caseSuivanteEstLibre(const Position &pos, int direction) const
 {

@@ -10,11 +10,16 @@
 #define terrain_h
 
 #include <iostream>
+#include <vector>
 #include "position.h"
+#include "element.h"
 
 class Terrain
 {
 public:
+
+
+
     /**
      * Constructeur de terrain : cree un terrain vide (classe abstraite)
      * @param longueur - longueur du terrain
@@ -34,7 +39,7 @@ public:
      * Initialise un terrain depuis un fichier ou est enregistre la configuration du terrain
      * @param ifst - fichier à charger
      */
-    virtual void charger(const std::ifstream &ifst) = 0;
+    virtual void charger(const std::string &nomFichier);
 
     /**
      * Indique si la case suivante est libre selon une position et une direction
@@ -78,6 +83,7 @@ protected:
     int d_nbMiroirs;
     int d_nbSemiMiroirs;
     int d_nbCibles;
+    std::vector<std::vector<Element>> d_terrain;
 };
 
 #endif /* terrain_h */

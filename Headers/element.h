@@ -9,7 +9,13 @@
 class Element
 {
 public:
+    Element();
+    Element (int valeur);
+    virtual void changerValeur(int valeur) ;
+    virtual  int valeur() const ;
+
 private:
+    int d_valeur;
 };
 
 

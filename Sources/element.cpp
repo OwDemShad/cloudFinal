@@ -3,3 +3,22 @@
 //
 
 #include "../Headers/element.h"
+
+Element::Element(int valeur) : d_valeur{valeur}
+{
+
+}
+
+int Element::valeur() const
+{
+    return d_valeur;
+}
+
+void Element::changerValeur(int valeur)
+{
+    d_valeur = valeur;
+}
+
+Element::Element() {
+
+}

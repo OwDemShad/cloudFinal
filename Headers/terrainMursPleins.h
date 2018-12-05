@@ -19,12 +19,7 @@ public:
 
     // ----------------- Methodes redefinies -----------------
 
-    /**
-     * Methode d'initialisation du terrain
-     * Charge un fichier dans lequel est enregistre la configuration du terrain
-     * @param ifst - nom du fichier
-     */
-    void charger(const std::ifstream &ifst) override ;
+
 
     /**
      * Indique si la case suivante est libre selon une position et une direction

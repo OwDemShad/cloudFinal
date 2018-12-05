@@ -1,0 +1,9 @@
+0	typeTerrain
+2	nbLignes
+2	nbColonnes
+0	nbMiroirs
+0	nbSemisMiroirs
+1	nbCibles
+
+0 4
+1 0
