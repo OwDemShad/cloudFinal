@@ -4,10 +4,11 @@
 
 #include "../Headers/element.h"
 
-Element::Element(int valeur) : d_valeur{valeur}
-{
+Element::Element() : d_valeur{0}
+{}
 
-}
+Element::Element(int valeur) : d_valeur{valeur}
+{}
 
 int Element::valeur() const
 {
@@ -17,8 +18,4 @@ int Element::valeur() const
 void Element::changerValeur(int valeur)
 {
     d_valeur = valeur;
-}
-
-Element::Element() {
-
 }

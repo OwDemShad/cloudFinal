@@ -50,6 +50,8 @@ public:
      */
     virtual bool estMur(const Position &pos) const override ;
 
+    virtual bool estCible(const Position &pos) const override ;
+
     /**
      * Indique le type de miroir a la position donnee
      * @param pos - position a tester

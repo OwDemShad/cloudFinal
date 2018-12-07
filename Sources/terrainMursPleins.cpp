@@ -44,6 +44,11 @@ bool TerrainMursPleins::estMur(const Position &pos) const
     return d_terrain[pos.x()][pos.y()].valeur() == 1;
 }
 
+bool TerrainMursPleins::estCible(const Position &pos) const
+{
+    return d_terrain[pos.x()][pos.y()].valeur() == 4;
+}
+
 int TerrainMursPleins::typeMiroir(const Position &pos) const
 {
     return d_terrain[pos.x()][pos.y()].valeur();

@@ -70,6 +70,8 @@ public:
      */
     virtual bool estMur(const Position &pos) const = 0;
 
+    virtual bool estCible(const Position &pos) const = 0;
+
     /**
      * Indique le type de miroir a la position donnee
      * @param pos - position a tester
@@ -83,6 +85,24 @@ public:
      * @return boolean - vrai si le jeu est termine
      */
     virtual bool fin() const = 0;
+
+    /**
+     * Decremente le nombre de cibles du terrain
+     */
+    void decrementeNombreDeCibles();
+
+
+
+    // METHODES DE RAPPEL
+    int longueur() const;
+
+    int hauteur() const;
+
+    int nbMiroirs() const;
+
+    int nbSemiMiroirs() const;
+
+    int nbCibles() const;
 
     // TESTS
     void print(std::ostream &ost) const;

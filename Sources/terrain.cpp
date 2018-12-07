@@ -50,6 +50,36 @@ void Terrain::print(std::ostream &ost) const
     }
 }
 
+void Terrain::decrementeNombreDeCibles()
+{
+    --d_nbCibles;
+}
+
+int Terrain::longueur() const
+{
+    return d_longueur;
+}
+
+int Terrain::hauteur() const
+{
+    return d_hauteur;
+}
+
+int Terrain::nbMiroirs() const
+{
+    return d_nbMiroirs;
+}
+
+int Terrain::nbSemiMiroirs() const
+{
+    return d_nbSemiMiroirs;
+}
+
+int Terrain::nbCibles() const
+{
+    return d_nbCibles;
+}
+
 /*
 void Terrain::charger(const std::string &nomFichier)
 {

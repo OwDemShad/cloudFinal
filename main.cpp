@@ -74,13 +74,13 @@ void charger(const std::string& nomFichier, TerrainMursPleins &t)
 }
 
 
-int main() {
-
-    TerrainMursPleins t;
-    charger("../testTerrain1.txt", t);
-
-    t.print(std::cout);
-
-    std::cout << "Hello, World!" << std::endl;
-    return 0;
-}
+//int main() {
+//
+//    TerrainMursPleins t;
+//    charger("../testTerrain1.txt", t);
+//
+//    t.print(std::cout);
+//
+//    std::cout << "Hello, World!" << std::endl;
+//    return 0;
+//}

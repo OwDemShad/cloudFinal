@@ -16,24 +16,18 @@ Laser::Laser(const Position &pos, int direction) : d_terrain{}, d_pos{pos}, d_di
 
 Laser::~Laser()
 {
-
-}
-
-void Laser::avance()
-{
-    if(d_terrain->caseSuivanteEstLibre(d_pos, d_direction))
-    {
-        changerPosition(d_direction);
-
-        int valeur = d_terrain->typeMiroir(d_pos);
-
-        if(valeur != 0) changerDirection(valeur);
-    }
+    delete d_terrain;
 }
 
 bool Laser::estSurCible() const
 {
+    if(d_terrain->estCible(d_pos))
+    {
+        d_terrain->decrementeNombreDeCibles();
+        return true;
+    }
 
+    return false;
 }
 
 Position Laser::position() const
@@ -118,5 +112,19 @@ void Laser::changerDirection(int miroir)
 
         default :
             break;
+    }
+}
+
+void Laser::avance()
+{
+    if(d_terrain->caseSuivanteEstLibre(d_pos, d_direction))
+    {
+        changerPosition(d_direction);
+
+        estSurCible();
+
+        int valeur = d_terrain->typeMiroir(d_pos);
+
+        if(valeur != 0) changerDirection(valeur);
     }
 }
