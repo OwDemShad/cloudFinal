@@ -9,9 +9,9 @@
 #include "../Headers/laser.h"
 #include "../Headers/terrain.h"
 
-Laser::Laser(const Position &pos, int direction, Terrain &t) : d_terrain{}, d_pos{pos}, d_direction{direction},d_nbPoints{0}
+Laser::Laser(const Position &pos, int direction, Terrain *t) : d_terrain{t}, d_pos{pos}, d_direction{direction},d_nbPoints{0}
 {
-    d_terrain = &t;
+//    d_terrain = &t;
 }
 
 Laser::~Laser()
@@ -75,9 +75,11 @@ void Laser::changerDirection(int miroir)
         // pas de miroir
         case 0 :
             break;
+        case 1 :
+            break;
 
         // '\' miroir normal
-        case 1 :
+        case 2 :
 
             if(d_direction == 0) d_direction = 3 ;
 
@@ -85,12 +87,12 @@ void Laser::changerDirection(int miroir)
 
             else if(d_direction == 2) d_direction = 1 ;
 
-            else if(d_direction == 3) d_direction = 0 ;
+            else d_direction = 0 ;
 
-            else break;
+            break;
 
         // '/' miroir normal
-        case 2 :
+        case 3 :
 
             if(d_direction == 0) d_direction = 1 ;
 
@@ -98,16 +100,16 @@ void Laser::changerDirection(int miroir)
 
             else if(d_direction == 2) d_direction = 3 ;
 
-            else if(d_direction == 3) d_direction = 2 ;
+            else d_direction = 2 ;
 
-            else break;
+            break;
 
         // '\' semi miroir
-        case 3 :
+        case 4 :
             break;
 
         // '/' semi miroir
-        case 4 :
+        case 5 :
             break;
 
         default :

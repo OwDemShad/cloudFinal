@@ -53,22 +53,24 @@ void charger(const std::string& nomFichier, TerrainMursPleins &t)
     }
 }
 
-void run(Laser l)
+void run(Laser l,TerrainMursPleins *t)
 {
-
+    t->placerMiroirs();
+    for (int i = 0; i <= 10 ; i++)
+        l.avance();
 }
 
 
 int main() {
 
-    TerrainMursPleins t;
-    charger("../testTerrain1.txt", t);
+    TerrainMursPleins *t = new TerrainMursPleins{};
+    t->charger("../testTerrain1.txt");
 
-    t.print(std::cout);
+    t->print(std::cout);
 
-    //Laser l { {0,0}, 1 , t};
+    Laser l { {0,0}, 1 , t};
 
-    //run(l);
+    run(l, t);
 
 
     std::cout << "Hello, World!" << std::endl;

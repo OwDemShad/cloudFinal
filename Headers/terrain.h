@@ -61,7 +61,7 @@ public:
      * @param element - element a placer --> 0 : rien, 1 : mur, 2 : \, 3 : /, 4 : cible
      * @param pos - position de l'element sur le terrain
      */
-    virtual void placeElement(int element, const Position &pos) = 0;
+    virtual void placeElement(int element, const Position &pos);
 
     /**
      * Indique s'il y a un mur a la position donnee
@@ -92,6 +92,19 @@ public:
     void decrementeNombreDeCibles();
 
     virtual void charger(const std::string& nomFichier) = 0;
+
+
+
+    bool positionLibre(Position &pos) const;
+
+    bool positionValide(Position &pos) const;
+
+    Position saisirPositionMiroir();
+
+    int saisieTypeTypeMiroir(bool miroirSimple);
+
+
+    void placerMiroirs() ;
 
 
 

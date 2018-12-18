@@ -105,6 +105,112 @@ void Terrain::nbCibles(int nbCibles)
     d_nbCibles = nbCibles;
 }
 
+bool Terrain::positionLibre(Position &pos) const
+{
+    return d_terrain[pos.y()][pos.x()].valeur() == 0 ;
+}
+
+bool Terrain::positionValide(Position &pos) const
+{
+    return ( pos.x() < d_longueur && pos.y() < d_hauteur);
+}
+
+void Terrain::placeElement(int element, const Position &pos)
+{
+    d_terrain[pos.y()][pos.x()].changerValeur(element);
+}
+
+Position Terrain::saisirPositionMiroir()
+{
+    bool positionEstValide = false;
+    int x, y;
+    while (!positionEstValide)
+    {
+        std::cout << "Entrer x : " ;
+        std::cin >> x;
+
+        std::cout << "Entrer y : " ;
+        std::cin >> y;
+        Position pos{x,y};
+        if (positionValide(pos) && positionLibre(pos))
+        {
+           positionEstValide = true;
+            return pos;
+        }
+        else
+        {
+            std::cout << "Position invalide, veuillez choisir une position valide" << std::endl;
+        }
+
+    }
+
+}
+
+int Terrain::saisieTypeTypeMiroir(bool typeMiroirSimple)
+{
+    int miroir= 0;
+    bool estValide = false;
+    if (typeMiroirSimple)
+    {
+        while (!estValide) {
+            std::cout << "Saisir un type de miroir : " << std::endl << "1 = \\" << std::endl << "2 = /" << std::endl;
+            std::cin >> miroir;
+            if (miroir != 1 && miroir != 2) // on verifie si le type saisie est un miroir
+            {
+                std::cout << "Type de miroir invalide, ecrire 1 ou 2 " << std::endl;
+            }else
+            {
+                estValide = true;
+            }
+        }
+    }
+    else
+    {
+        while (!estValide) {
+            std::cout << "Saisir un type de semi miroir : " << std::endl << " 3 = \\" << std::endl << "4 = /" << std::endl;
+            std::cin >> miroir;
+            if (miroir != 3 && miroir != 4) // on verifie si le type saisie est un miroir
+            {
+                std::cout << "Type de miroir invalide, ecrire 1 ou 2 " << std::endl;
+            }else
+            {
+                estValide = true;
+            }
+        }
+    }
+    return miroir;
+}
+
+void Terrain::placerMiroirs()
+{
+    int miroir;
+    if (d_nbMiroirs > 0)
+    {
+
+        for (int i = 1; i <= d_nbMiroirs; ++i)
+        {
+            std::cout << "entrer la position du miroir : " << i << std::endl;
+            Position pos = saisirPositionMiroir();
+            miroir =saisieTypeTypeMiroir(true);
+            placeElement(miroir+1,pos);
+            print(std::cout);
+        }
+
+    }
+    if (d_nbSemiMiroirs > 0)
+    {
+
+        for (int i = 1; i <= d_nbSemiMiroirs; ++i)
+        {
+            std::cout << "entrer la position du semi miroir : " << i << std::endl;
+            Position pos = saisirPositionMiroir();
+            miroir =saisieTypeTypeMiroir(false);
+            placeElement(miroir+1,pos);
+        }
+
+    }
+}
+
 /*
 void Terrain::charger(const std::string &nomFichier)
 {

@@ -17,19 +17,19 @@ bool TerrainMursPleins::caseSuivanteEstLibre(const Position &pos, int direction)
     {
         case 0 :
             if(pos.y() == 0) return false;
-            else return estMur(Position{pos.x(), pos.y() - 1});
+            else return !estMur(Position{pos.x(), pos.y() - 1});
 
         case 1 :
             if(pos.x() == d_longueur) return false;
-            else return estMur(Position{pos.x() + 1, pos.y()});
+            else return !estMur(Position{pos.x() + 1, pos.y()});
 
         case 2 :
             if(pos.y() == d_hauteur) return false;
-            else return estMur(Position{pos.x(), pos.y() + 1});
+            else return !estMur(Position{pos.x(), pos.y() + 1});
 
         case 3 :
             if(pos.x() == 0) return false;
-            else return estMur(Position{pos.x() - 1, pos.y()});
+            else return !estMur(Position{pos.x() - 1, pos.y()});
 
         default: break;
     }
@@ -37,22 +37,22 @@ bool TerrainMursPleins::caseSuivanteEstLibre(const Position &pos, int direction)
 
 void TerrainMursPleins::placeElement(int element, const Position &pos)
 {
-    d_terrain[pos.x()][pos.y()] = element;
+    d_terrain[pos.y()][pos.x()] = element;
 }
 
 bool TerrainMursPleins::estMur(const Position &pos) const
 {
-    return d_terrain[pos.x()][pos.y()].valeur() == 1;
+    return d_terrain[pos.y()][pos.x()].valeur() == 1;
 }
 
 bool TerrainMursPleins::estCible(const Position &pos) const
 {
-    return d_terrain[pos.x()][pos.y()].valeur() == 4;
+    return d_terrain[pos.y()][pos.x()].valeur() == 4;
 }
 
 int TerrainMursPleins::typeMiroir(const Position &pos) const
 {
-    return d_terrain[pos.x()][pos.y()].valeur();
+    return d_terrain[pos.y()][pos.x()].valeur();
 }
 
 bool TerrainMursPleins::fin() const
