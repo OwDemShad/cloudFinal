@@ -20,7 +20,7 @@ public:
      * Constructeur de laser
      * @param pos - position qui initialise le laser
      */
-    Laser(const Position &pos, int direction);
+    Laser(const Position &pos, int direction, Terrain &t);
 
     /**
      * Destructeur de laser : detruit le terrain

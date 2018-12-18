@@ -3,6 +3,7 @@
 //
 
 #include "../Headers/terrainMursPleins.h"
+#include <fstream>
 
 TerrainMursPleins::TerrainMursPleins() : Terrain{}
 {}
@@ -56,5 +57,46 @@ int TerrainMursPleins::typeMiroir(const Position &pos) const
 
 bool TerrainMursPleins::fin() const
 {
+
+}
+
+void TerrainMursPleins::charger(const std::string &nomFichier)
+{
+    std::ifstream f (nomFichier);
+
+    if ( !f) return;
+
+    bool typeTerrain;
+    int longueur, hauteur, nbMiroirs, nbSemiMiroirs, nbCibles;
+
+    f >> typeTerrain >> hauteur >> longueur >> nbMiroirs >> nbSemiMiroirs >> nbCibles;
+    int ligne = 0, colonne = 0;
+
+    this->longueur(longueur);
+    this->hauteur(hauteur);
+    this->nbMiroirs(nbMiroirs);
+    this->nbSemiMiroirs(nbSemiMiroirs);
+    this->nbCibles(nbCibles);
+
+    std::vector<std::vector<Element>> tab (static_cast<unsigned int>(hauteur), std::vector<Element>(
+            static_cast<unsigned int>(longueur)));
+
+    this->terrain() = tab;
+
+    int valeurCase;
+
+    while (!f.eof())
+    {
+        f >> valeurCase;
+        this->terrain()[ligne][colonne] = valeurCase;
+        ++colonne;
+
+        if (colonne == longueur)
+        {
+            colonne = 0;
+            ++ligne;
+        }
+    }
+
 
 }

@@ -13,6 +13,8 @@ class TerrainMursFins : public Terrain
 {
 public:
     TerrainMursFins(int longueur, int hauteur, int nbMiroirs, int nbSemiMiroirs, int nbCibles);
+
+    virtual void charger(const std::string& nomFichier) override;
 private:
 };
 

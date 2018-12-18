@@ -65,6 +65,10 @@ public:
      * @return
      */
     virtual bool fin() const override ;
+
+
+    virtual void charger(const std::string& nomFichier) override;
+
 private:
     // tableau 2D de int car les classes elements sont inutiles
 };

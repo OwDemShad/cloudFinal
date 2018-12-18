@@ -7,11 +7,11 @@
 //
 
 #include "../Headers/laser.h"
+#include "../Headers/terrain.h"
 
-
-Laser::Laser(const Position &pos, int direction) : d_terrain{}, d_pos{pos}, d_direction{direction}, d_nbPoints{0}
+Laser::Laser(const Position &pos, int direction, Terrain &t) : d_terrain{}, d_pos{pos}, d_direction{direction},d_nbPoints{0}
 {
-
+    d_terrain = &t;
 }
 
 Laser::~Laser()

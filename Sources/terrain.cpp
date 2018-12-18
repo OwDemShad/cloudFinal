@@ -80,6 +80,31 @@ int Terrain::nbCibles() const
     return d_nbCibles;
 }
 
+void Terrain::longueur(int longueur)
+{
+    d_longueur = longueur;
+}
+
+void Terrain::hauteur(int hauteur)
+{
+    d_hauteur = hauteur;
+}
+
+void Terrain::nbMiroirs(int nbMiroirs)
+{
+    d_nbMiroirs = nbMiroirs;
+}
+
+void Terrain::nbSemiMiroirs(int nbSemiMiroirs)
+{
+    d_nbSemiMiroirs = nbSemiMiroirs;
+}
+
+void Terrain::nbCibles(int nbCibles)
+{
+    d_nbCibles = nbCibles;
+}
+
 /*
 void Terrain::charger(const std::string &nomFichier)
 {

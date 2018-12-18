@@ -91,6 +91,8 @@ public:
      */
     void decrementeNombreDeCibles();
 
+    virtual void charger(const std::string& nomFichier) = 0;
+
 
 
     // METHODES DE RAPPEL
@@ -106,6 +108,20 @@ public:
 
     // TESTS
     void print(std::ostream &ost) const;
+
+
+
+
+
+    void longueur(int longueur) ;
+
+    void hauteur(int hauteur) ;
+
+    void nbMiroirs(int nbMiroirs) ;
+
+    void nbSemiMiroirs(int nbSemiMiroirs) ;
+
+    void nbCibles(int nbCibles) ;
 
 protected:
     int d_longueur, d_hauteur;
