@@ -42,12 +42,12 @@ void TerrainMursPleins::placeElement(int element, const Position &pos)
 
 bool TerrainMursPleins::estMur(const Position &pos) const
 {
-    return d_terrain[pos.y()][pos.x()].valeur() == 1;
+    return d_terrain[pos.y()][pos.x()].valeur() == MUR;
 }
 
 bool TerrainMursPleins::estCible(const Position &pos) const
 {
-    return d_terrain[pos.y()][pos.x()].valeur() == 4;
+    return d_terrain[pos.y()][pos.x()].valeur() == CIBLE;
 }
 
 int TerrainMursPleins::typeMiroir(const Position &pos) const
@@ -72,11 +72,11 @@ void TerrainMursPleins::charger(const std::string &nomFichier)
     f >> typeTerrain >> hauteur >> longueur >> nbMiroirs >> nbSemiMiroirs >> nbCibles;
     int ligne = 0, colonne = 0;
 
-    this->longueur(longueur);
-    this->hauteur(hauteur);
-    this->nbMiroirs(nbMiroirs);
-    this->nbSemiMiroirs(nbSemiMiroirs);
-    this->nbCibles(nbCibles);
+    d_longueur = longueur;
+    d_hauteur = hauteur;
+    d_nbMiroirs = nbMiroirs;
+    d_nbSemiMiroirs = nbSemiMiroirs;
+    d_nbCibles = nbCibles;
 
     std::vector<std::vector<Element>> tab (static_cast<unsigned int>(hauteur), std::vector<Element>(
             static_cast<unsigned int>(longueur)));

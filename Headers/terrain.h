@@ -14,6 +14,18 @@
 #include "position.h"
 #include "element.h"
 
+
+const int LIBRE = 0;
+
+const int MUR = 1;
+
+const int MIROIR1 = 2;
+
+const int MIROIR2 = 3;
+
+const int CIBLE = 4;
+
+
 class Terrain
 {
 public:
@@ -70,12 +82,18 @@ public:
      */
     virtual bool estMur(const Position &pos) const = 0;
 
+
+    /**
+     * Verifie si une cible se trouve a une certaine position
+     * @param [in] pos - position a laquelle on veut verifier s'il y a une cible
+     * @return bool - vrai si il y a une cible
+     */
     virtual bool estCible(const Position &pos) const = 0;
 
     /**
      * Indique le type de miroir a la position donnee
      * @param pos - position a tester
-     * @return int - 0 : pas de miroir, 1 : \, 2 : /, 3 : \ (semi-miroir); 4 : / (semi-miroir)
+     * @return int - 0 : pas de miroir; 2: \; 3 : /; 4 : \ (semi-miroir); 5 : / (semi-miroir)
      */
     virtual int typeMiroir(const Position &pos) const = 0;
 
@@ -91,49 +109,127 @@ public:
      */
     void decrementeNombreDeCibles();
 
+
+    /**
+     * Detruit une cible
+     * @param [in] pos - position dans le terrain
+     */
+    void detruitCible(Position &pos);
+
+
+    /**
+     * Fonction permettant de charger un terrain sauvegarde
+     * @param [in] nomFichier - fichier a charger
+     */
     virtual void charger(const std::string& nomFichier) = 0;
 
+    // -------------------- Verification de la position --------------------
 
-
+    /**
+     * Verifie si la position dans le terrain est Libre
+     * @param [in] pos - position dans le terrain
+     * @return bool - vrai si la position est libre
+     */
     bool positionLibre(Position &pos) const;
 
+
+    /**
+     * Verifie si la position est valide, ne sort pas du terrai
+     * @param [in] pos - position a tester
+     * @return bool - vrai si les positions ne sont pas hors du terrain
+     */
     bool positionValide(Position &pos) const;
 
+
+
+    // -------------------- Saisie des miroirs --------------------
+
+    /**
+     * Permet au joueur de saisir la position d'un miroir
+     * @return pos - la position a laquelle il faut placer le miroir
+     */
     Position saisirPositionMiroir();
 
-    int saisieTypeTypeMiroir(bool miroirSimple);
+    /**
+     * Permet au joueur de saisir le type de miroir qu'il souhaite
+     * @param [in] miroirSimple - permet de savoir s'il sagit de saisir des miroirs simple ou semi miroir
+     * @return int - le miroir souhaite
+     */
+    int saisieTypeMiroir(bool miroirSimple);
 
-
+    /**
+     * methode qui permet au joueur de placer les miroirs
+     */
     void placerMiroirs() ;
 
 
-
-    // METHODES DE RAPPEL
+    // -------------------- Methodes de rappel --------------------
+    /**
+     * Fonction qui renvoie la longueur du terrain
+     * @return int - la longueur
+     */
     int longueur() const;
 
+    /**
+     * Fonction qui renvoie la hauteur du terrain
+     * @return int - la hauteur
+     */
     int hauteur() const;
 
+    /**
+     * Fonction qui renvoie le nombre de miroir
+     * @return int - le nombre de miroir
+     */
     int nbMiroirs() const;
 
+    /**
+    * Fonction qui renvoie le nombre de semi miroir
+    * @return int - le nombre de semi miroir
+    */
     int nbSemiMiroirs() const;
 
+
+    /**
+    * Fonction qui renvoie le nombre de cible
+    * @return int - le nombre de cible
+    */
     int nbCibles() const;
 
-    // TESTS
+    // ------------------- TESTS --------------------
     void print(std::ostream &ost) const;
 
 
 
+    // -------------------- Methodes de changement --------------------
 
-
+    /**
+     * Permet de changer la longueur du terrain
+     * @param [in] - longueur
+     */
     void longueur(int longueur) ;
 
+    /**
+     * Permet de changer la hauteur du terrain
+     * @param [in] - hauteur
+     */
     void hauteur(int hauteur) ;
 
+    /**
+     * Permet de changer le nombre de miroir dans terrain
+     * @param [in] - nombre de miroir
+     */
     void nbMiroirs(int nbMiroirs) ;
 
+    /**
+     * Permet de changer le nombre de semi miroir dans terrain
+     * @param [in] - nombre de semi miroir
+     */
     void nbSemiMiroirs(int nbSemiMiroirs) ;
 
+    /**
+     * Permet de changer le nombre de cible dans terrain
+     * @param [in] - nombre de cible
+     */
     void nbCibles(int nbCibles) ;
 
 protected:

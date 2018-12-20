@@ -50,6 +50,12 @@ public:
      */
     virtual bool estMur(const Position &pos) const override ;
 
+
+    /**
+     * Permet de savoir si une cible ce trouve a la position donnee
+     * @param [in] pos - position a verifier
+     * @return bool - vrai si il y a une cible
+     */
     virtual bool estCible(const Position &pos) const override ;
 
     /**
@@ -67,6 +73,10 @@ public:
     virtual bool fin() const override ;
 
 
+    /**
+     * Permet de charger un terrain
+     * @param [in} nomFichier - fichier a charger
+     */
     virtual void charger(const std::string& nomFichier) override;
 
 private:

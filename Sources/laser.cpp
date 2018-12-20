@@ -19,15 +19,15 @@ Laser::~Laser()
     delete d_terrain;
 }
 
+void Laser::incrementePoint()
+{
+    d_nbPoints ++;
+}
+
 bool Laser::estSurCible() const
 {
-    if(d_terrain->estCible(d_pos))
-    {
-        d_terrain->decrementeNombreDeCibles();
-        return true;
-    }
+     return d_terrain->estCible(d_pos);
 
-    return false;
 }
 
 Position Laser::position() const
@@ -43,24 +43,45 @@ int Laser::nbPoints() const {
     return d_nbPoints;
 }
 
+
+void Laser::deplacementHaut()
+{
+    d_pos = Position{d_pos.x(), d_pos.y() - 1};
+}
+
+void Laser::deplacementDroite()
+{
+    d_pos = Position{d_pos.x() + 1, d_pos.y()};
+}
+
+void Laser::deplacementBas()
+{
+    d_pos = Position{d_pos.x(), d_pos.y() + 1};
+}
+
+void Laser::deplacementGauche()
+{
+    d_pos = Position{d_pos.x() - 1, d_pos.y()};
+}
+
 void Laser::changerPosition(int direction)
 {
     switch(direction)
     {
         case 0 :
-            d_pos = Position{d_pos.x(), d_pos.y() - 1};
+            deplacementHaut();
             break;
 
         case 1 :
-            d_pos = Position{d_pos.x() + 1, d_pos.y()};
+            deplacementDroite();
             break;
 
         case 2 :
-            d_pos = Position{d_pos.x(), d_pos.y() + 1};
+            deplacementBas();
             break;
 
         case 3 :
-            d_pos = Position{d_pos.x() - 1, d_pos.y()};
+            deplacementGauche();
             break;
 
         default :
@@ -81,26 +102,26 @@ void Laser::changerDirection(int miroir)
         // '\' miroir normal
         case 2 :
 
-            if(d_direction == 0) d_direction = 3 ;
+            if(d_direction == HAUT) d_direction = GAUCHE ;
 
-            else if(d_direction == 1) d_direction = 2 ;
+            else if(d_direction == DROITE) d_direction = BAS ;
 
-            else if(d_direction == 2) d_direction = 1 ;
+            else if(d_direction == BAS) d_direction = DROITE ;
 
-            else d_direction = 0 ;
+            else d_direction = HAUT ;
 
             break;
 
         // '/' miroir normal
         case 3 :
 
-            if(d_direction == 0) d_direction = 1 ;
+            if(d_direction == HAUT) d_direction = DROITE ;
 
-            else if(d_direction == 1) d_direction = 0 ;
+            else if(d_direction == DROITE) d_direction = HAUT ;
 
-            else if(d_direction == 2) d_direction = 3 ;
+            else if(d_direction == BAS) d_direction = GAUCHE ;
 
-            else d_direction = 2 ;
+            else d_direction = BAS ;
 
             break;
 
@@ -119,14 +140,32 @@ void Laser::changerDirection(int miroir)
 
 void Laser::avance()
 {
-    if(d_terrain->caseSuivanteEstLibre(d_pos, d_direction))
+    changerPosition(d_direction);
+
+    if (estSurCible())
     {
-        changerPosition(d_direction);
-
-        estSurCible();
-
-        int valeur = d_terrain->typeMiroir(d_pos);
-
-        if(valeur != 0) changerDirection(valeur);
+        incrementePoint();
+        detruitCible();
     }
+
+
+
+    int valeur = d_terrain->typeMiroir(d_pos);
+
+    if(valeur != LIBRE) changerDirection(valeur);
 }
+
+bool Laser::peutAvancer()
+{
+    return d_terrain->caseSuivanteEstLibre(d_pos, d_direction);
+}
+
+void Laser::detruitCible()
+{
+    d_terrain->detruitCible(d_pos);
+    d_terrain->decrementeNombreDeCibles();
+}
+
+
+
+

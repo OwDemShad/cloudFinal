@@ -55,9 +55,13 @@ void charger(const std::string& nomFichier, TerrainMursPleins &t)
 
 void run(Laser l,TerrainMursPleins *t)
 {
+    //bool laserEstBloque = false;
     t->placerMiroirs();
-    for (int i = 0; i <= 10 ; i++)
+
+    while ( l.peutAvancer())
+    {
         l.avance();
+    }
 }
 
 
@@ -71,7 +75,6 @@ int main() {
     Laser l { {0,0}, 1 , t};
 
     run(l, t);
-
 
     std::cout << "Hello, World!" << std::endl;
     return 0;

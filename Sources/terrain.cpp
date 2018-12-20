@@ -55,6 +55,11 @@ void Terrain::decrementeNombreDeCibles()
     --d_nbCibles;
 }
 
+
+
+
+    // -------------------- Methodes de rappel --------------------
+
 int Terrain::longueur() const
 {
     return d_longueur;
@@ -79,6 +84,9 @@ int Terrain::nbCibles() const
 {
     return d_nbCibles;
 }
+
+
+    // -------------------- Methodes de changement --------------------
 
 void Terrain::longueur(int longueur)
 {
@@ -105,9 +113,12 @@ void Terrain::nbCibles(int nbCibles)
     d_nbCibles = nbCibles;
 }
 
+
+    // -------------------- Methodes de verification de l'etat du jeu --------------------
+
 bool Terrain::positionLibre(Position &pos) const
 {
-    return d_terrain[pos.y()][pos.x()].valeur() == 0 ;
+    return d_terrain[pos.y()][pos.x()].valeur() == LIBRE ;
 }
 
 bool Terrain::positionValide(Position &pos) const
@@ -141,12 +152,11 @@ Position Terrain::saisirPositionMiroir()
         {
             std::cout << "Position invalide, veuillez choisir une position valide" << std::endl;
         }
-
     }
 
 }
 
-int Terrain::saisieTypeTypeMiroir(bool typeMiroirSimple)
+int Terrain::saisieTypeMiroir(bool typeMiroirSimple)
 {
     int miroir= 0;
     bool estValide = false;
@@ -191,7 +201,7 @@ void Terrain::placerMiroirs()
         {
             std::cout << "entrer la position du miroir : " << i << std::endl;
             Position pos = saisirPositionMiroir();
-            miroir =saisieTypeTypeMiroir(true);
+            miroir =saisieTypeMiroir(true);
             placeElement(miroir+1,pos);
             print(std::cout);
         }
@@ -204,62 +214,17 @@ void Terrain::placerMiroirs()
         {
             std::cout << "entrer la position du semi miroir : " << i << std::endl;
             Position pos = saisirPositionMiroir();
-            miroir =saisieTypeTypeMiroir(false);
+            miroir =saisieTypeMiroir(false);
             placeElement(miroir+1,pos);
         }
 
     }
 }
 
-/*
-void Terrain::charger(const std::string &nomFichier)
+void Terrain::detruitCible(Position &pos)
 {
-    std::ifstream f (nomFichier);
-    if ( !f) return;
-    bool typeFichier;
-    int longueur, hauteur, nbMiroir, nbSemiMiroir, nbCible;
-    f >> typeFichier >> hauteur >> longueur >> nbCible >> nbSemiMiroir >> nbCible;
-
-    int ligne = 0, colonne = 0;
-
-    if ( typeFichier )
-    {
-        std::vector<std::vector<Case>> tab (hauteur,std::vector<Case>(longueur));
-        bool haut, droite, bas, gauche;
-        int valeurCase;
-
-        while (!f.eof())
-        {
-            f >> haut >> droite >> bas >> gauche >> valeurCase;
-
-            Case c {haut,bas,gauche,droite,valeurCase};
-            d_terrain[ligne][colonne] = c;
-            ++colonne;
-            if (colonne == longueur)
-            {
-                colonne = 0;
-                ++hauteur;
-            }
-        }
-    }
-    else
-    {
-        std::vector<std::vector<Element>> tab (hauteur,std::vector<Element>(longueur));
-        int valeurCase;
-
-        while (!f.eof())
-        {
-            f >> valeurCase;
-            d_terrain[ligne][colonne] = valeurCase;
-            ++colonne;
-            if (colonne == longueur)
-            {
-                colonne = 0;
-                ++hauteur;
-            }
-        }
-    }
-
+    d_terrain[pos.y()][pos.x()] = LIBRE;
 }
-*/
+
+
 
