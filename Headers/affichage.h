@@ -13,12 +13,13 @@
 class Affichage
 {
 public:
-    Affichage(int longueur, int largeur);
+    Affichage(int longueur, int hauteur);
+    void traceCarre(const Position& positionDepart) const;
     void afficherTerrainMursPleins(const TerrainMursPleins &terrain) const ;
     void afficherTerrainMursFins(const TerrainMursFins &terrain) const ;
     void update();
 private:
-    int d_longueur, d_largeur;  // taille de la fenetre
+    int d_longueur, d_hauteur;  // tailles du plateau
     const unsigned int d_tailleCase = 50;
 };
 

@@ -42,12 +42,12 @@ void TerrainMursPleins::placeElement(int element, const Position &pos)
 
 bool TerrainMursPleins::estMur(const Position &pos) const
 {
-    return d_terrain[pos.y()][pos.x()].valeur() == MUR;
+    return d_terrain[pos.y()][pos.x()].valeur() == 1;
 }
 
 bool TerrainMursPleins::estCible(const Position &pos) const
 {
-    return d_terrain[pos.y()][pos.x()].valeur() == CIBLE;
+    return d_terrain[pos.y()][pos.x()].valeur() == 4;
 }
 
 int TerrainMursPleins::typeMiroir(const Position &pos) const

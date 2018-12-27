@@ -17,6 +17,8 @@ public:
     Position (const Position& p);
     int x() const;
     int y() const;
+    void changerX(int x);
+    void changerY(int y);
     
 private:
     int d_x, d_y;

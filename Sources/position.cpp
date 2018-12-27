@@ -23,3 +23,14 @@ int Position::y() const
 {
     return d_y;
 }
+
+void Position::changerX(int x)
+{
+    d_x = x;
+}
+
+void Position::changerY(int y)
+{
+    d_y = y;
+}
+
