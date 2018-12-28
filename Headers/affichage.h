@@ -9,18 +9,21 @@
 #include "terrain.h"
 #include "terrainMursPleins.h"
 #include "terrainMursFins.h"
+#include "laser.h"
 
 class Affichage
 {
 public:
     Affichage(int longueur, int hauteur);
     void traceCarre(const Position& positionDepart) const;
-    void afficherTerrainMursPleins(const TerrainMursPleins &terrain) const ;
+    void afficherTerrainMursPleins(const Terrain &terrain) const ;
     void afficherTerrainMursFins(const TerrainMursFins &terrain) const ;
-    void update();
+    void update(const Terrain &terrain) const;
+    void afficherMiroirs(const Terrain &terrain) const;
+    void afficherLaser(const Laser &laser) const;
 private:
     int d_longueur, d_hauteur;  // tailles du plateau
-    const unsigned int d_tailleCase = 50;
+    const int d_tailleCase = 50;
 };
 
 

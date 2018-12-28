@@ -60,6 +60,12 @@ public:
     std::vector<std::vector<Element>>& terrain();
 
     /**
+     * Retourne par reference la donnee privee d_terrain
+     * @return std::vector<std::vector<Element>>&
+     */
+    const std::vector<std::vector<Element>>& terrain() const;   // les const sont necessaires pour l'acces (dans la classe Affichage par exemple)
+
+    /**
      * Indique si la case suivante est libre selon une position et une direction
      * La case est libre s'il n'y a pas de mur
      * @param pos

@@ -5,6 +5,8 @@
 #include "Headers/terrainMursFins.h"
 #include "Headers/case.h"
 #include "Headers/laser.h"
+#include "Headers/affichage.h"
+#include "Headers/graphics.h"
 
 void charger(const std::string& nomFichier, TerrainMursPleins &t)
 {
@@ -53,15 +55,19 @@ void charger(const std::string& nomFichier, TerrainMursPleins &t)
     }
 }
 
-void run(Laser l,TerrainMursPleins *t)
+void run(Laser l,Terrain &t, Affichage &a)
 {
     //bool laserEstBloque = false;
-    t->placerMiroirs();
+    t.placerMiroirs();
+    a.afficherMiroirs(t);
 
     while ( l.peutAvancer())
     {
+        a.afficherLaser(l);
         l.avance();
+        a.afficherLaser(l);
     }
+
 }
 
 
@@ -70,12 +76,21 @@ int main() {
     TerrainMursPleins *t = new TerrainMursPleins{};
     t->charger("../testTerrain1.txt");
 
-    t->print(std::cout);
+    //t->print(std::cout);
 
     Laser l { {0,0}, 1 , t};
 
-    run(l, t);
+    Affichage a{t->longueur(), t->hauteur()};
 
-    std::cout << "Hello, World!" << std::endl;
+    opengraphsize(1000,800);
+
+    a.afficherTerrainMursPleins(*t);
+
+    run(l, *t, a);
+
+    getch();
+
+    closegraph();
+
     return 0;
 }

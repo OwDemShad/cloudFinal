@@ -23,11 +23,18 @@ Terrain::Terrain(int longueur, int hauteur, int nbMiroirs, int nbSemiMiroirs, in
 }
 
 
-Terrain::~Terrain() {
+Terrain::~Terrain()
+{
 
 }
 
-std::vector<std::vector<Element>>& Terrain::terrain() {
+std::vector<std::vector<Element>>& Terrain::terrain()
+{
+    return d_terrain;
+}
+
+const std::vector<std::vector<Element>>& Terrain::terrain() const
+{
     return d_terrain;
 }
 
