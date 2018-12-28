@@ -19,8 +19,16 @@ public:
     void afficherTerrainMursPleins(const Terrain &terrain) const ;
     void afficherTerrainMursFins(const TerrainMursFins &terrain) const ;
     void update(const Terrain &terrain) const;
+    void afficherMiroir(const Position &depart, const Position &arrivee) const;
     void afficherMiroirs(const Terrain &terrain) const;
-    void afficherLaser(const Laser &laser) const;
+    void afficherLaserUnDemiTrait(const Position &depart, const Position &arrivee) const;
+    void afficherLaserUnDemiTraitSensNord(const Position &depart, const Position &arrivee) const;
+    void afficherLaserUnDemiTraitSensEst(const Position &depart, const Position &arrivee) const;
+    void afficherLaserUnDemiTraitSensSud(const Position &depart, const Position &arrivee) const;
+    void afficherLaserUnDemiTraitSensOuest(const Position &depart, const Position &arrivee) const;
+    void afficherLaserPremierDemiTrait(const Laser &laser) const;
+    void afficherLaserDeuxiemeDemiTrait(const Laser &laser) const;
+    void afficherLaserPremierTraitGrille(const Laser &laser) const;
 private:
     int d_longueur, d_hauteur;  // tailles du plateau
     const int d_tailleCase = 50;

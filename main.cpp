@@ -60,12 +60,13 @@ void run(Laser l,Terrain &t, Affichage &a)
     //bool laserEstBloque = false;
     t.placerMiroirs();
     a.afficherMiroirs(t);
+    a.afficherLaserPremierTraitGrille(l);
 
-    while ( l.peutAvancer())
+    while ( l.peutAvancer() )
     {
-        a.afficherLaser(l);
+        a.afficherLaserPremierDemiTrait(l);
+        a.afficherLaserDeuxiemeDemiTrait(l);
         l.avance();
-        a.afficherLaser(l);
     }
 
 }
