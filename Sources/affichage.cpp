@@ -138,7 +138,7 @@ void Affichage::afficherLaserPremierDemiTrait(const Laser &laser) const
             afficherLaserUnDemiTraitSensNord ( Position { DECALAGEX + laser.position().x() * d_tailleCase + d_tailleCase / 2,
                                                           DECALAGEY + laser.position().y() * d_tailleCase + d_tailleCase / 2},
                                                Position { DECALAGEX + laser.position().x() * d_tailleCase + d_tailleCase / 2,
-                                                          DECALAGEY + ( laser.position().y() - 1 ) * d_tailleCase} ) ;
+                                                          DECALAGEY + laser.position().y() * d_tailleCase} ) ;
             break;
 
         case 1 :
