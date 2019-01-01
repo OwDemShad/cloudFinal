@@ -37,22 +37,22 @@ bool TerrainMursPleins::caseSuivanteEstLibre(const Position &pos, int direction)
 
 void TerrainMursPleins::placeElement(int element, const Position &pos)
 {
-    d_terrain[pos.y()][pos.x()] = element;
+    d_terrain[pos.y()][pos.x()]->changerValeur( element);
 }
 
 bool TerrainMursPleins::estMur(const Position &pos) const
 {
-    return d_terrain[pos.y()][pos.x()].valeur() == MUR;
+    return d_terrain[pos.y()][pos.x()]->valeur() == MUR;
 }
 
 bool TerrainMursPleins::estCible(const Position &pos) const
 {
-    return d_terrain[pos.y()][pos.x()].valeur() == CIBLE;
+    return d_terrain[pos.y()][pos.x()]->valeur() == CIBLE;
 }
 
 int TerrainMursPleins::typeMiroir(const Position &pos) const
 {
-    return d_terrain[pos.y()][pos.x()].valeur();
+    return d_terrain[pos.y()][pos.x()]->valeur();
 }
 
 bool TerrainMursPleins::fin() const
@@ -78,7 +78,7 @@ void TerrainMursPleins::charger(const std::string &nomFichier)
     d_nbSemiMiroirs = nbSemiMiroirs;
     d_nbCibles = nbCibles;
 
-    std::vector<std::vector<Element>> tab (static_cast<unsigned int>(hauteur), std::vector<Element>(
+    std::vector<std::vector<Element*>> tab (static_cast<unsigned int>(hauteur), std::vector<Element*>(
             static_cast<unsigned int>(longueur)));
 
     this->terrain() = tab;
@@ -88,7 +88,8 @@ void TerrainMursPleins::charger(const std::string &nomFichier)
     while (!f.eof())
     {
         f >> valeurCase;
-        this->terrain()[ligne][colonne] = valeurCase;
+        Element *e = new Element(valeurCase);
+        this->terrain()[ligne][colonne] = e;
         ++colonne;
 
         if (colonne == longueur)

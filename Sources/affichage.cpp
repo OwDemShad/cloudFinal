@@ -22,11 +22,11 @@ void Affichage::afficherTerrainMursPleins(const Terrain &terrain) const
         for ( int j = 0 ; j < d_longueur ; ++j)
         {
             traceCarre(depart);
-            if ( terrain.terrain()[i][j].valeur() == MUR )
+            if ( terrain.terrain()[i][j]->valeur() == MUR )
             {
                 floodfill ( depart.x() + d_tailleCase/2, depart.y() + d_tailleCase/2, WHITE );
             }
-            else if ( terrain.terrain()[i][j].valeur() == CIBLE )
+            else if ( terrain.terrain()[i][j]->valeur() == CIBLE )
             {
                 setcolor(GREEN);
                 setlinestyle(0, 1, 2);
@@ -81,14 +81,14 @@ void Affichage::afficherMiroirs(const Terrain &t) const
     {
         for ( int j = 0 ; j < d_longueur ; ++j)
         {
-            if ( t.terrain()[i][j].valeur() == MIROIR1 )
+            if ( t.terrain()[i][j]->valeur() == MIROIR1 )
             {
 
                 afficherMiroir ( Position { DECALAGEX + j * d_tailleCase, DECALAGEY + i * d_tailleCase },
                                 Position { DECALAGEX + j * d_tailleCase + d_tailleCase, DECALAGEY + i * d_tailleCase + d_tailleCase } ) ;
             }
 
-            else if ( t.terrain()[i][j].valeur() == MIROIR2 )
+            else if ( t.terrain()[i][j]->valeur() == MIROIR2 )
             {
 
                 afficherMiroir ( Position { DECALAGEX + j * d_tailleCase + d_tailleCase, DECALAGEY + i * d_tailleCase },

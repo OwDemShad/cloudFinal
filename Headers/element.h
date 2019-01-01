@@ -11,6 +11,8 @@ class Element
 public:
     Element();
     Element (int valeur);
+    ~Element();
+
     virtual void changerValeur(int valeur) ;
     virtual  int valeur() const ;
 

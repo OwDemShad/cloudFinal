@@ -6,6 +6,9 @@
 #include "../Headers/terrainMursFins.h"
 
 
+TerrainMursFins::TerrainMursFins() : Terrain{}
+{}
+
 TerrainMursFins::TerrainMursFins(int longueur, int hauteur, int nbMiroirs, int nbSemiMiroirs, int nbCibles) : Terrain(longueur, hauteur, nbMiroirs, nbSemiMiroirs, nbCibles)
 {}
 
@@ -21,11 +24,11 @@ void TerrainMursFins::charger(const std::string &nomFichier)
     f >> typeTerrain >> hauteur >> longueur >> nbMiroirs >> nbSemiMiroirs >> nbCibles;
     int ligne = 0, colonne = 0;
 
-    this->longueur(longueur);
-    this->hauteur(hauteur);
-    this->nbMiroirs(nbMiroirs);
-    this->nbSemiMiroirs(nbSemiMiroirs);
-    this->nbCibles(nbCibles);
+    d_longueur = longueur;
+    d_hauteur = hauteur;
+    d_nbMiroirs = nbMiroirs;
+    d_nbSemiMiroirs = nbSemiMiroirs;
+    d_nbCibles = nbCibles;
 
     std::vector<std::vector<Case>> tab (hauteur,std::vector<Case>(longueur));
 
@@ -37,8 +40,8 @@ void TerrainMursFins::charger(const std::string &nomFichier)
         while (!f.eof()) {
             f >> haut >> droite >> bas >> gauche >> valeurCase;
 
-            Case c{haut, bas, gauche, droite, valeurCase};
-            this->terrain()[ligne][colonne] = c;
+            Case *c = new Case {haut, droite, bas, gauche, valeurCase};
+            d_terrain[ligne][colonne] = c;
             ++colonne;
 
             if (colonne == longueur) {
@@ -46,4 +49,28 @@ void TerrainMursFins::charger(const std::string &nomFichier)
                 ++ligne;
             }
         }
+}
+
+bool TerrainMursFins::caseSuivanteEstLibre(const Position &pos, int direction) const {
+    return false;
+}
+
+void TerrainMursFins::placeElement(int element, const Position &pos) {
+    Terrain::placeElement(element, pos);
+}
+
+bool TerrainMursFins::estMur(const Position &pos) const {
+    return false;
+}
+
+bool TerrainMursFins::estCible(const Position &pos) const {
+    return false;
+}
+
+int TerrainMursFins::typeMiroir(const Position &pos) const {
+    return 0;
+}
+
+bool TerrainMursFins::fin() const {
+    return false;
 }

@@ -57,13 +57,13 @@ public:
      * Retourne par reference la donnee privee d_terrain
      * @return std::vector<std::vector<Element>>&
      */
-    std::vector<std::vector<Element>>& terrain();
+    std::vector<std::vector<Element*>>& terrain();
 
     /**
      * Retourne par reference la donnee privee d_terrain
      * @return std::vector<std::vector<Element>>&
      */
-    const std::vector<std::vector<Element>>& terrain() const;   // les const sont necessaires pour l'acces (dans la classe Affichage par exemple)
+    const std::vector<std::vector<Element*>>& terrain() const;   // les const sont necessaires pour l'acces (dans la classe Affichage par exemple)
 
     /**
      * Indique si la case suivante est libre selon une position et une direction
@@ -243,7 +243,7 @@ protected:
     int d_nbMiroirs;
     int d_nbSemiMiroirs;
     int d_nbCibles;
-    std::vector<std::vector<Element>> d_terrain;
+    std::vector<std::vector<Element*>> d_terrain;
 };
 
 #endif /* terrain_h */

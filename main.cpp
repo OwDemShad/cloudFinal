@@ -74,10 +74,20 @@ void run(Laser l,Terrain &t, Affichage &a)
 
 int main() {
 
+
+    // --------------------- Mur Plein ----------------------
     TerrainMursPleins *t = new TerrainMursPleins{};
     t->charger("../testTerrain1.txt");
 
-    //t->print(std::cout);
+
+    // --------------------- Mur Fin ----------------------
+
+//    TerrainMursFins *t = new TerrainMursFins{};
+//    t->charger("../testTerrain2.txt");
+
+
+
+    t->print(std::cout);
 
     Laser l { {0,0}, 1 , t};
 
@@ -92,6 +102,8 @@ int main() {
     getch();
 
     closegraph();
+
+    delete t;
 
     return 0;
 }

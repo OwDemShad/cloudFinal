@@ -19,3 +19,7 @@ void Element::changerValeur(int valeur)
 {
     d_valeur = valeur;
 }
+
+Element::~Element() {
+
+}
