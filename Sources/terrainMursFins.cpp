@@ -30,9 +30,9 @@ void TerrainMursFins::charger(const std::string &nomFichier)
     d_nbSemiMiroirs = nbSemiMiroirs;
     d_nbCibles = nbCibles;
 
-    std::vector<std::vector<Case>> tab (hauteur,std::vector<Case>(longueur));
+    std::vector<std::vector<Element*>> tab (hauteur,std::vector<Element*>(longueur));
 
-        //t.terrain() = tab;
+        this->terrain() = tab;
 
         bool haut, droite, bas, gauche;
         int valeurCase;
@@ -51,24 +51,47 @@ void TerrainMursFins::charger(const std::string &nomFichier)
         }
 }
 
-bool TerrainMursFins::caseSuivanteEstLibre(const Position &pos, int direction) const {
-    return false;
+bool TerrainMursFins::caseSuivanteEstLibre(const Position &pos, int direction) const
+{
+    switch(direction)
+    {
+        case 0 :
+            if(pos.y() == 0) return false;
+            else return !estMur(Position{pos.x(), pos.y() - 1});
+
+        case 1 :
+            if(pos.x() == d_longueur) return false;
+            else return !estMur(Position{pos.x() + 1, pos.y()});
+
+        case 2 :
+            if(pos.y() == d_hauteur) return false;
+            else return !estMur(Position{pos.x(), pos.y() + 1});
+
+        case 3 :
+            if(pos.x() == 0) return false;
+            else return !estMur(Position{pos.x() - 1, pos.y()});
+
+        default: break;
+    }
 }
 
 void TerrainMursFins::placeElement(int element, const Position &pos) {
     Terrain::placeElement(element, pos);
 }
 
-bool TerrainMursFins::estMur(const Position &pos) const {
+bool TerrainMursFins::estMur(const Position &pos) const
+{
     return false;
 }
 
-bool TerrainMursFins::estCible(const Position &pos) const {
-    return false;
+bool TerrainMursFins::estCible(const Position &pos) const
+{
+    return d_terrain[pos.y()][pos.x()]->valeur() == CIBLE;
 }
 
-int TerrainMursFins::typeMiroir(const Position &pos) const {
-    return 0;
+int TerrainMursFins::typeMiroir(const Position &pos) const
+{
+    return d_terrain[pos.y()][pos.x()]->valeur();
 }
 
 bool TerrainMursFins::fin() const {

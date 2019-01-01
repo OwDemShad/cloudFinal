@@ -68,6 +68,7 @@ void run(Laser l,Terrain &t, Affichage &a)
         a.afficherLaserDeuxiemeDemiTrait(l);
         l.avance();
     }
+    std::cout << "Points : " << l.nbPoints() << std::endl;
 
 }
 
@@ -76,14 +77,14 @@ int main() {
 
 
     // --------------------- Mur Plein ----------------------
-    TerrainMursPleins *t = new TerrainMursPleins{};
-    t->charger("../testTerrain1.txt");
+//    TerrainMursPleins *t = new TerrainMursPleins{};
+//    t->charger("../testTerrain1.txt");
 
 
     // --------------------- Mur Fin ----------------------
 
-//    TerrainMursFins *t = new TerrainMursFins{};
-//    t->charger("../testTerrain2.txt");
+    TerrainMursFins *t = new TerrainMursFins{};
+    t->charger("../testTerrain2.txt");
 
 
 
@@ -102,6 +103,7 @@ int main() {
     getch();
 
     closegraph();
+
 
     delete t;
 
