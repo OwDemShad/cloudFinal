@@ -9,15 +9,24 @@
 #ifndef case_h
 #define case_h
 
-#include "element.h"
 
-class Case : public Element
+class Case
 {
 public:
     Case();
     Case(bool murHaut, bool murDroit, bool murBas, bool murGauche, int val);
+    Case(int valeur);
+     void changerValeur(int valeur) ;
+
+      int valeur() const ;
+     bool estMurHaut() const ;
+     bool estMurDroit() const ;
+     bool estMurBas() const ;
+     bool estMurGauche() const ;
+
 private:
     bool d_murHaut, d_murDroit, d_murBas, d_murGauche;
+    int d_valeur;
 };
 
 #endif /* case_h */

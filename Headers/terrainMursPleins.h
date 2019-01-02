@@ -48,22 +48,8 @@ public:
      * @param pos - position a tester
      * @return boolean - vrai s'il y a un mur a la position pos
      */
-    virtual bool estMur(const Position &pos) const override ;
+    bool estMur(const Position &pos) const ;
 
-
-    /**
-     * Permet de savoir si une cible ce trouve a la position donnee
-     * @param [in] pos - position a verifier
-     * @return bool - vrai si il y a une cible
-     */
-    virtual bool estCible(const Position &pos) const override ;
-
-    /**
-     * Indique le type de miroir a la position donnee
-     * @param pos - position a tester
-     * @return int - 0 : pas de miroir, 1 : \, 2 : /, 3 : \ (semi-miroir); 4 : / (semi-miroir)
-     */
-    virtual int typeMiroir(const Position &pos) const override ;
 
     /**
      * Indique si la partie est terminee

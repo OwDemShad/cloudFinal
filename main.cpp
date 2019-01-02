@@ -77,14 +77,14 @@ int main() {
 
 
     // --------------------- Mur Plein ----------------------
-//    TerrainMursPleins *t = new TerrainMursPleins{};
-//    t->charger("../testTerrain1.txt");
+    TerrainMursPleins *t = new TerrainMursPleins{};
+    t->charger("../Sources/testTerrain3.txt");
 
 
     // --------------------- Mur Fin ----------------------
 
-    TerrainMursFins *t = new TerrainMursFins{};
-    t->charger("../testTerrain2.txt");
+//    TerrainMursFins *t = new TerrainMursFins{};
+//    t->charger("../testTerrain2.txt");
 
 
 

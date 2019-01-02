@@ -3,6 +3,7 @@
 //
 
 #include "../Headers/terrainMursPleins.h"
+#include "../Headers/case.h"
 #include <fstream>
 
 TerrainMursPleins::TerrainMursPleins() : Terrain{}
@@ -45,16 +46,6 @@ bool TerrainMursPleins::estMur(const Position &pos) const
     return d_terrain[pos.y()][pos.x()]->valeur() == MUR;
 }
 
-bool TerrainMursPleins::estCible(const Position &pos) const
-{
-    return d_terrain[pos.y()][pos.x()]->valeur() == CIBLE;
-}
-
-int TerrainMursPleins::typeMiroir(const Position &pos) const
-{
-    return d_terrain[pos.y()][pos.x()]->valeur();
-}
-
 bool TerrainMursPleins::fin() const
 {
 
@@ -78,7 +69,7 @@ void TerrainMursPleins::charger(const std::string &nomFichier)
     d_nbSemiMiroirs = nbSemiMiroirs;
     d_nbCibles = nbCibles;
 
-    std::vector<std::vector<Element*>> tab (static_cast<unsigned int>(hauteur), std::vector<Element*>(
+    std::vector<std::vector<Case*>> tab (static_cast<unsigned int>(hauteur), std::vector<Case*>(
             static_cast<unsigned int>(longueur)));
 
     this->terrain() = tab;
@@ -88,7 +79,7 @@ void TerrainMursPleins::charger(const std::string &nomFichier)
     while (!f.eof())
     {
         f >> valeurCase;
-        Element *e = new Element(valeurCase);
+        Case *e = new Case{valeurCase};
         this->terrain()[ligne][colonne] = e;
         ++colonne;
 

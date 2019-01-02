@@ -30,7 +30,7 @@ void TerrainMursFins::charger(const std::string &nomFichier)
     d_nbSemiMiroirs = nbSemiMiroirs;
     d_nbCibles = nbCibles;
 
-    std::vector<std::vector<Element*>> tab (hauteur,std::vector<Element*>(longueur));
+    std::vector<std::vector<Case*>> tab (hauteur,std::vector<Case*>(longueur));
 
         this->terrain() = tab;
 
@@ -57,19 +57,19 @@ bool TerrainMursFins::caseSuivanteEstLibre(const Position &pos, int direction) c
     {
         case 0 :
             if(pos.y() == 0) return false;
-            else return !estMur(Position{pos.x(), pos.y() - 1});
+            else return !estMurHaut(pos);
 
         case 1 :
             if(pos.x() == d_longueur) return false;
-            else return !estMur(Position{pos.x() + 1, pos.y()});
+            else return !estMurDroit(pos);
 
         case 2 :
             if(pos.y() == d_hauteur) return false;
-            else return !estMur(Position{pos.x(), pos.y() + 1});
+            else return !estMurBas(pos);
 
         case 3 :
             if(pos.x() == 0) return false;
-            else return !estMur(Position{pos.x() - 1, pos.y()});
+            else return !estMurGauche(pos);
 
         default: break;
     }
@@ -79,21 +79,27 @@ void TerrainMursFins::placeElement(int element, const Position &pos) {
     Terrain::placeElement(element, pos);
 }
 
-bool TerrainMursFins::estMur(const Position &pos) const
-{
-    return false;
-}
-
-bool TerrainMursFins::estCible(const Position &pos) const
-{
-    return d_terrain[pos.y()][pos.x()]->valeur() == CIBLE;
-}
-
-int TerrainMursFins::typeMiroir(const Position &pos) const
-{
-    return d_terrain[pos.y()][pos.x()]->valeur();
-}
 
 bool TerrainMursFins::fin() const {
     return false;
+}
+
+bool TerrainMursFins::estMurHaut(const Position &pos) const
+{
+    return d_terrain[pos.y()][pos.x()]->estMurHaut();
+}
+
+bool TerrainMursFins::estMurDroit(const Position &pos) const
+{
+    return d_terrain[pos.y()][pos.x()]->estMurDroit();
+}
+
+bool TerrainMursFins::estMurBas(const Position &pos) const
+{
+    return d_terrain[pos.y()][pos.x()]->estMurBas();
+}
+
+bool TerrainMursFins::estMurGauche(const Position &pos) const
+{
+    return d_terrain[pos.y()][pos.x()]->estMurGauche();
 }

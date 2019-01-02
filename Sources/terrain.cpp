@@ -30,12 +30,12 @@ Terrain::~Terrain()
             delete d_terrain[i][j];
 }
 
-std::vector<std::vector<Element*>>& Terrain::terrain()
+std::vector<std::vector<Case*>>& Terrain::terrain()
 {
     return d_terrain;
 }
 
-const std::vector<std::vector<Element*>>& Terrain::terrain() const
+const std::vector<std::vector<Case*>>& Terrain::terrain() const
 {
     return d_terrain;
 }
@@ -234,6 +234,16 @@ void Terrain::placerMiroirs()
 void Terrain::detruitCible(Position &pos)
 {
     d_terrain[pos.y()][pos.x()]->changerValeur(LIBRE);
+}
+
+bool Terrain::estCible(const Position &pos) const
+{
+    return d_terrain[pos.y()][pos.x()]->valeur() == CIBLE;
+}
+
+int Terrain::typeMiroir(const Position &pos) const
+{
+    return d_terrain[pos.y()][pos.x()]->valeur();
 }
 
 

@@ -12,7 +12,7 @@
 #include <iostream>
 #include <vector>
 #include "position.h"
-#include "element.h"
+#include "case.h"
 
 
 const int LIBRE = 0;
@@ -57,13 +57,13 @@ public:
      * Retourne par reference la donnee privee d_terrain
      * @return std::vector<std::vector<Element>>&
      */
-    std::vector<std::vector<Element*>>& terrain();
+    std::vector<std::vector<Case*>>& terrain();
 
     /**
      * Retourne par reference la donnee privee d_terrain
      * @return std::vector<std::vector<Element>>&
      */
-    const std::vector<std::vector<Element*>>& terrain() const;   // les const sont necessaires pour l'acces (dans la classe Affichage par exemple)
+    const std::vector<std::vector<Case*>>& terrain() const;   // les const sont necessaires pour l'acces (dans la classe Affichage par exemple)
 
     /**
      * Indique si la case suivante est libre selon une position et une direction
@@ -81,27 +81,20 @@ public:
      */
     virtual void placeElement(int element, const Position &pos);
 
-    /**
-     * Indique s'il y a un mur a la position donnee
-     * @param pos[in] - position a tester
-     * @return boolean - vrai s'il y a un mur, faux sinon
-     */
-    virtual bool estMur(const Position &pos) const = 0;
-
 
     /**
      * Verifie si une cible se trouve a une certaine position
      * @param [in] pos - position a laquelle on veut verifier s'il y a une cible
      * @return bool - vrai si il y a une cible
      */
-    virtual bool estCible(const Position &pos) const = 0;
+    bool estCible(const Position &pos) const;
 
     /**
      * Indique le type de miroir a la position donnee
      * @param pos - position a tester
      * @return int - 0 : pas de miroir; 2: \; 3 : /; 4 : \ (semi-miroir); 5 : / (semi-miroir)
      */
-    virtual int typeMiroir(const Position &pos) const = 0;
+    int typeMiroir(const Position &pos) const ;
 
     /**
      * Indique si le jeu est termine
@@ -243,7 +236,7 @@ protected:
     int d_nbMiroirs;
     int d_nbSemiMiroirs;
     int d_nbCibles;
-    std::vector<std::vector<Element*>> d_terrain;
+    std::vector<std::vector<Case*>> d_terrain;
 };
 
 #endif /* terrain_h */
