@@ -34,11 +34,11 @@ public:
 
     /**
      * Constructeur de terrain : cree un terrain vide (classe abstraite)
-     * @param longueur - longueur du terrain
-     * @param hauteur - hauteur du terrain
-     * @param nbMiroirs - nombre de miroirs sur le terrain
-     * @param nbSemiMiroirs - nombre de semi miroirs sur le terrain
-     * @param nbCibles - nombre de cibles sur le terrain
+     * @param [in] longueur - longueur du terrain
+     * @param [in] hauteur - hauteur du terrain
+     * @param [in] nbMiroirs - nombre de miroirs sur le terrain
+     * @param [in] nbSemiMiroirs - nombre de semi miroirs sur le terrain
+     * @param [in] nbCibles - nombre de cibles sur le terrain
      */
     Terrain(int longueur, int hauteur, int nbMiroirs, int nbSemiMiroirs, int nbCibles);
 
@@ -49,35 +49,35 @@ public:
 
     /**
      * Initialise un terrain depuis un fichier ou est enregistre la configuration du terrain
-     * @param ifst - fichier à charger
+     * @param [in] ifst - fichier à charger
      */
     //virtual void charger(const std::string &nomFichier);
 
     /**
      * Retourne par reference la donnee privee d_terrain
-     * @return std::vector<std::vector<Element>>&
+     * @return std::vector<std::vector<Case*>>& - le terrain
      */
     std::vector<std::vector<Case*>>& terrain();
 
     /**
      * Retourne par reference la donnee privee d_terrain
-     * @return std::vector<std::vector<Element>>&
+     * @return std::vector<std::vector<Case*>>& - le terrain
      */
     const std::vector<std::vector<Case*>>& terrain() const;   // les const sont necessaires pour l'acces (dans la classe Affichage par exemple)
 
     /**
      * Indique si la case suivante est libre selon une position et une direction
      * La case est libre s'il n'y a pas de mur
-     * @param pos
-     * @param direction
+     * @param [in] pos - la position a verifier
+     * @param [in] direction - sens de deplacement du laser
      * @return boolean - vrai si la case est libre, faux sinon
      */
     virtual bool caseSuivanteEstLibre(const Position &pos, int direction) const = 0;
 
     /**
      * Positionne un element sur le terrain a une position
-     * @param element - element a placer --> 0 : rien, 1 : mur, 2 : \, 3 : /, 4 : cible
-     * @param pos - position de l'element sur le terrain
+     * @param [in] element - element a placer --> 0 : rien, 1 : mur, 2 : \, 3 : /, 4 : cible
+     * @param [in] pos - position de l'element sur le terrain
      */
     virtual void placeElement(int element, const Position &pos);
 
@@ -91,7 +91,7 @@ public:
 
     /**
      * Indique le type de miroir a la position donnee
-     * @param pos - position a tester
+     * @param [in] pos - position a tester
      * @return int - 0 : pas de miroir; 2: \; 3 : /; 4 : \ (semi-miroir); 5 : / (semi-miroir)
      */
     int typeMiroir(const Position &pos) const ;
@@ -203,31 +203,31 @@ public:
 
     /**
      * Permet de changer la longueur du terrain
-     * @param [in] - longueur
+     * @param [in] longueur - longueur
      */
     void longueur(int longueur) ;
 
     /**
      * Permet de changer la hauteur du terrain
-     * @param [in] - hauteur
+     * @param [in] hauteur - hauteur
      */
     void hauteur(int hauteur) ;
 
     /**
      * Permet de changer le nombre de miroir dans terrain
-     * @param [in] - nombre de miroir
+     * @param [in] nbMiroirs - nombre de miroir
      */
     void nbMiroirs(int nbMiroirs) ;
 
     /**
      * Permet de changer le nombre de semi miroir dans terrain
-     * @param [in] - nombre de semi miroir
+     * @param [in] nbSemiMiroirs - nombre de semi miroir
      */
     void nbSemiMiroirs(int nbSemiMiroirs) ;
 
     /**
      * Permet de changer le nombre de cible dans terrain
-     * @param [in] - nombre de cible
+     * @param [in] nbCibles - nombre de cible
      */
     void nbCibles(int nbCibles) ;
 

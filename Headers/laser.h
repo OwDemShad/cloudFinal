@@ -25,7 +25,9 @@ class Laser
 public:
     /**
      * Constructeur de laser
-     * @param pos - position qui initialise le laser
+     * @param [in] pos - position qui initialise le laser
+     * @param [in] direction - direction dans laquelle se deplace le laser
+     * @param [in] t - pointeur sur le terrain
      */
     Laser(const Position &pos, int direction, Terrain *t);
 
@@ -45,14 +47,16 @@ public:
      */
     bool estSurCible() const;
 
-
+    /**
+     * Augmente les points du laser
+     */
     void incrementePoint();
 
     // -------------------- Methodes de rappel --------------------
 
     /**
      * Retourne la position du laser
-     * @return Position
+     * @return Position - position actuelle du laser
      */
     Position position() const;
 
@@ -65,7 +69,7 @@ public:
 
     /**
      * Retourne le nombre de points que le laser a recoltes
-     * @return int
+     * @return int - le nombre de point
      */
     int nbPoints() const;
 
@@ -73,7 +77,7 @@ public:
 
     /**
      * Change la position du laser selon une direction
-     * @param direction - sens du laser
+     * @param [in]  direction - sens du laser
      */
     void changerPosition(int direction);
 
@@ -100,7 +104,7 @@ public:
 
     /**
      * Change la direction du laser selon un miroir
-     * @param miroir - '/' ou '\'
+     * @param [in] miroir - '/' ou '\'
      */
     void changerDirection(int miroir);
 

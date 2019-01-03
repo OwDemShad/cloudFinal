@@ -16,12 +16,41 @@ public:
     Case();
     Case(bool murHaut, bool murDroit, bool murBas, bool murGauche, int val);
     Case(int valeur);
+
+    /**
+     * Fonction qui change la valeur de la case
+     * @param [in] valeur - valeur à placer
+     */
      void changerValeur(int valeur) ;
 
-      int valeur() const ;
+     /**
+      * Retourne la valeur de la case
+      * @return int - valeur de la case
+      */
+     int valeur() const ;
+
+     /**
+      * Verifie si le cote du haut est un mur
+      * @return bool - vrai si il y a un mur sur le cote haut
+      */
      bool estMurHaut() const ;
+
+    /**
+     * Verifie si le cote droit est un mur
+     * @return bool - vrai si il y a un mur sur le cote droit
+     */
      bool estMurDroit() const ;
+
+    /**
+     * Verifie si le cote du bas est un mur
+     * @return bool - vrai si il y a un mur sur le cote bas
+     */
      bool estMurBas() const ;
+
+    /**
+     * Verifie si le cote gauche est un mur
+     * @return bool - vrai si il y a un mur sur le cote gauche
+     */
      bool estMurGauche() const ;
 
 private:
