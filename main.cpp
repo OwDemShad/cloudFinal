@@ -77,16 +77,16 @@ int main() {
 
 
     // --------------------- Mur Plein ----------------------
+    /*
     TerrainMursPleins *t = new TerrainMursPleins{};
-    t->charger("../Sources/testTerrain3.txt");
+    t->charger("../testTerrainMursPleins1.txt");
+    */
 
 
     // --------------------- Mur Fin ----------------------
 
-//    TerrainMursFins *t = new TerrainMursFins{};
-//    t->charger("../testTerrain2.txt");
-
-
+    TerrainMursFins *t = new TerrainMursFins{};
+    t->charger("../testTerrainMursFins2.txt");
 
     t->print(std::cout);
 
@@ -96,7 +96,8 @@ int main() {
 
     opengraphsize(1000,800);
 
-    a.afficherTerrainMursPleins(*t);
+    //a.afficherTerrainMursPleins(*t);
+    a.afficherTerrainMursFins(*t);
 
     run(l, *t, a);
 

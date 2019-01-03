@@ -13,29 +13,45 @@ Affichage::Affichage(int longueur, int hauteur) : d_longueur{longueur}, d_hauteu
     // ici mettre les methodes de winbgi pour pouvoir creer la fenetre
 }
 
+void Affichage::traceCible(const Position &pos, int radiusDivizer) const
+{
+    circle( pos.x() + d_tailleCase/2, pos.y() + d_tailleCase/2, d_tailleCase/radiusDivizer );
+    circle( pos.x() + d_tailleCase/2, pos.y() + d_tailleCase/2, d_tailleCase/radiusDivizer/2 );
+}
+
+void Affichage::changerCouleurTrait(int coulour) const
+{
+    setcolor(coulour);
+}
+
+void Affichage::changerEpaisseurTrait(int epaisseur) const
+{
+    setlinestyle(0,1,epaisseur);
+}
+
 void Affichage::afficherTerrainMursPleins(const Terrain &terrain) const
 {
-    Position depart{ DECALAGEX, DECALAGEY};
+    Position depart{ DECALAGEX, DECALAGEY };
 
-    for ( int i = 0 ; i < d_hauteur ; ++i)
+    for ( int i = 0 ; i < d_hauteur ; ++i )
     {
-        for ( int j = 0 ; j < d_longueur ; ++j)
+        for ( int j = 0 ; j < d_longueur ; ++j )
         {
             traceCarre(depart);
+
             if ( terrain.terrain()[i][j]->valeur() == MUR )
             {
                 floodfill ( depart.x() + d_tailleCase/2, depart.y() + d_tailleCase/2, WHITE );
             }
             else if ( terrain.terrain()[i][j]->valeur() == CIBLE )
             {
-                setcolor(GREEN);
-                setlinestyle(0, 1, 2);
+                changerCouleurTrait(GREEN);
+                changerEpaisseurTrait(2);
 
-                circle ( depart.x() + d_tailleCase/2, depart.y() + d_tailleCase/2, d_tailleCase/2 );
-                circle ( depart.x() + d_tailleCase/2, depart.y() + d_tailleCase/2, d_tailleCase/4 );
+                traceCible ( depart, 2 );
 
-                setlinestyle(0, 1, 1);
-                setcolor(WHITE);
+                changerEpaisseurTrait(1);
+                changerCouleurTrait(WHITE);
             }
 
             depart.changerX ( depart.x() + d_tailleCase );
@@ -54,9 +70,77 @@ void Affichage::traceCarre(const Position& depart) const
     line(depart.x(), depart.y() + d_tailleCase, depart.x(), depart.y());
 }
 
-void Affichage::afficherTerrainMursFins(const TerrainMursFins &terrain) const
+void Affichage::afficherTerrainMursFins(const Terrain &terrain) const
 {
+    Position depart { DECALAGEX, DECALAGEY };
 
+    for ( int i = 0 ; i < d_hauteur ; ++i )
+    {
+        for ( int j = 0 ; j < d_longueur ; ++j )
+        {
+            traceCarre(depart);
+
+            // tests pour verifier si un des cotes de la cases est un mur
+            if ( terrain.terrain()[i][j]->estMurHaut() )
+            {
+                changerEpaisseurTrait(5);
+
+                line ( DECALAGEX + j * d_tailleCase, DECALAGEY + i * d_tailleCase,
+                        DECALAGEX + j * d_tailleCase + d_tailleCase, DECALAGEY + i * d_tailleCase ) ;
+
+                changerEpaisseurTrait(1);
+            }
+
+            if ( terrain.terrain()[i][j]->estMurDroit() )
+            {
+                changerEpaisseurTrait(5);
+
+                line ( DECALAGEX + j * d_tailleCase + d_tailleCase, DECALAGEY + i * d_tailleCase,
+                        DECALAGEX + j * d_tailleCase + d_tailleCase, DECALAGEY + i * d_tailleCase + d_tailleCase ) ;
+
+                changerEpaisseurTrait(1);
+            }
+
+            if ( terrain.terrain()[i][j]->estMurBas() )
+            {
+                changerEpaisseurTrait(5);
+
+                line ( DECALAGEX + j * d_tailleCase, DECALAGEY + i * d_tailleCase + d_tailleCase,
+                        DECALAGEX + j * d_tailleCase + d_tailleCase, DECALAGEY + i * d_tailleCase + d_tailleCase ) ;
+
+                changerEpaisseurTrait(1);
+            }
+
+            if ( terrain.terrain()[i][j]->estMurGauche() )
+            {
+                changerEpaisseurTrait(5);
+
+                line ( DECALAGEX + j * d_tailleCase, DECALAGEY + i * d_tailleCase,
+                        DECALAGEX + j * d_tailleCase, DECALAGEY + i * d_tailleCase + d_tailleCase ) ;
+
+                changerEpaisseurTrait(1);
+            }
+
+
+            // tests pour verifier si la cible est presente dans la case [i][j]
+            if ( terrain.terrain()[i][j]->valeur() == CIBLE )
+            {
+                changerCouleurTrait(GREEN);
+                changerEpaisseurTrait(2);
+
+                traceCible ( depart,2 ) ;
+
+                changerEpaisseurTrait(1);
+                changerCouleurTrait(WHITE);
+            }
+
+            depart.changerX ( depart.x() + d_tailleCase ) ;
+
+        }
+
+        depart.changerX(50);
+        depart.changerY ( depart.y() + d_tailleCase ) ;
+    }
 }
 
 void Affichage::update(const Terrain &t) const
@@ -66,13 +150,13 @@ void Affichage::update(const Terrain &t) const
 
 void Affichage::afficherMiroir(const Position &depart, const Position &arrivee) const
 {
-    setcolor(GREEN);
-    setlinestyle(0, 1, 2);
+    changerCouleurTrait(GREEN);
+    changerEpaisseurTrait(3);
 
     line(depart.x(), depart.y(), arrivee.x(), arrivee.y());
 
-    setlinestyle(0, 1, 1);
-    setcolor(GREEN);
+    changerEpaisseurTrait(1);
+    changerCouleurTrait(WHITE);
 }
 
 void Affichage::afficherMiroirs(const Terrain &t) const
@@ -101,13 +185,13 @@ void Affichage::afficherMiroirs(const Terrain &t) const
 void Affichage::afficherLaserUnDemiTrait(const Position &depart, const Position &arrivee) const
 {
     delay(50);
-    setcolor(RED);
-    setlinestyle(0,1,6);
+    changerCouleurTrait(RED);
+    changerEpaisseurTrait(6);
 
     line(depart.x(), depart.y(), arrivee.x(), arrivee.y());
 
-    setlinestyle(0,1,1);
-    setcolor(RED);
+    changerEpaisseurTrait(1);
+    changerCouleurTrait(WHITE);
 }
 
 void Affichage::afficherLaserUnDemiTraitSensNord(const Position &depart, const Position &arrivee) const
