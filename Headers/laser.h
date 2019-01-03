@@ -73,6 +73,12 @@ public:
      */
     int nbPoints() const;
 
+    /**
+     * Retourne le terrain sur lequel le laser evolue
+     * @return Terrain* - terrain du laser
+     */
+    Terrain* terrain() const;
+
     // -------------------- Methodes de changement --------------------
 
     /**
