@@ -43,6 +43,11 @@ int Laser::nbPoints() const {
     return d_nbPoints;
 }
 
+Terrain* Laser::terrain() const
+{
+    return d_terrain;
+}
+
 
 void Laser::deplacementHaut()
 {
