@@ -9,7 +9,7 @@
 #include "../Headers/case.h"
 #include "../Headers/terrain.h"
 
-Case::Case() : d_valeur{0}, d_murGauche{0}, d_murBas{0}, d_murDroit{0}, d_murHaut{0}
+Case::Case() : d_valeur{0}, d_murGauche{false}, d_murBas{false}, d_murDroit{false}, d_murHaut{false}
 {
 
 }
@@ -18,7 +18,7 @@ Case::Case(bool murHaut, bool murDroit, bool murBas, bool murGauche, int val) : 
                                                                        d_murBas{murBas}, d_murGauche{murGauche}
 {}
 
-Case::Case(int valeur) : d_valeur(valeur),d_murGauche{1}, d_murBas{1}, d_murDroit{1}, d_murHaut{1}
+Case::Case(int valeur) : d_valeur(valeur),d_murGauche{true}, d_murBas{true}, d_murDroit{true}, d_murHaut{true}
 {
     if (d_valeur != MUR)
     {
