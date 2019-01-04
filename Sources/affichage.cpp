@@ -39,11 +39,11 @@ void Affichage::afficherTerrainMursPleins(const Terrain &terrain) const
         {
             traceCarre(depart);
 
-            if ( terrain.terrain()[i][j]->valeur() == MUR )
+            if ( terrain.terrain()[i][j].valeur() == MUR )
             {
                 floodfill ( depart.x() + d_tailleCase/2, depart.y() + d_tailleCase/2, WHITE );
             }
-            else if ( terrain.terrain()[i][j]->valeur() == CIBLE )
+            else if ( terrain.terrain()[i][j].valeur() == CIBLE )
             {
                 changerCouleurTrait(GREEN);
                 changerEpaisseurTrait(2);
@@ -81,7 +81,7 @@ void Affichage::afficherTerrainMursFins(const Terrain &terrain) const
             traceCarre(depart);
 
             // tests pour verifier si un des cotes de la cases est un mur
-            if ( terrain.terrain()[i][j]->estMurHaut() )
+            if ( terrain.terrain()[i][j].estMurHaut() )
             {
                 changerEpaisseurTrait(5);
 
@@ -91,7 +91,7 @@ void Affichage::afficherTerrainMursFins(const Terrain &terrain) const
                 changerEpaisseurTrait(1);
             }
 
-            if ( terrain.terrain()[i][j]->estMurDroit() )
+            if ( terrain.terrain()[i][j].estMurDroit() )
             {
                 changerEpaisseurTrait(5);
 
@@ -101,7 +101,7 @@ void Affichage::afficherTerrainMursFins(const Terrain &terrain) const
                 changerEpaisseurTrait(1);
             }
 
-            if ( terrain.terrain()[i][j]->estMurBas() )
+            if ( terrain.terrain()[i][j].estMurBas() )
             {
                 changerEpaisseurTrait(5);
 
@@ -111,7 +111,7 @@ void Affichage::afficherTerrainMursFins(const Terrain &terrain) const
                 changerEpaisseurTrait(1);
             }
 
-            if ( terrain.terrain()[i][j]->estMurGauche() )
+            if ( terrain.terrain()[i][j].estMurGauche() )
             {
                 changerEpaisseurTrait(5);
 
@@ -123,7 +123,7 @@ void Affichage::afficherTerrainMursFins(const Terrain &terrain) const
 
 
             // tests pour verifier si la cible est presente dans la case [i][j]
-            if ( terrain.terrain()[i][j]->valeur() == CIBLE )
+            if ( terrain.terrain()[i][j].valeur() == CIBLE )
             {
                 changerCouleurTrait(GREEN);
                 changerEpaisseurTrait(2);
@@ -143,10 +143,10 @@ void Affichage::afficherTerrainMursFins(const Terrain &terrain) const
     }
 }
 
-void Affichage::update(const Terrain &t) const
-{
-
-}
+//void Affichage::update(const Terrain &t) const
+//{
+//
+//}
 
 void Affichage::afficherMiroir(const Position &depart, const Position &arrivee) const
 {
@@ -165,14 +165,14 @@ void Affichage::afficherMiroirs(const Terrain &t) const
     {
         for ( int j = 0 ; j < d_longueur ; ++j)
         {
-            if ( t.terrain()[i][j]->valeur() == MIROIR1 )
+            if ( t.terrain()[i][j].valeur() == MIROIR1 )
             {
 
                 afficherMiroir ( Position { DECALAGEX + j * d_tailleCase, DECALAGEY + i * d_tailleCase },
                                 Position { DECALAGEX + j * d_tailleCase + d_tailleCase, DECALAGEY + i * d_tailleCase + d_tailleCase } ) ;
             }
 
-            else if ( t.terrain()[i][j]->valeur() == MIROIR2 )
+            else if ( t.terrain()[i][j].valeur() == MIROIR2 )
             {
 
                 afficherMiroir ( Position { DECALAGEX + j * d_tailleCase + d_tailleCase, DECALAGEY + i * d_tailleCase },

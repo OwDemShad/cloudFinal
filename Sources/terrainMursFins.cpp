@@ -30,9 +30,9 @@ void TerrainMursFins::charger(const std::string &nomFichier)
     d_nbSemiMiroirs = nbSemiMiroirs;
     d_nbCibles = nbCibles;
 
-    std::vector<std::vector<Case*>> tab (hauteur,std::vector<Case*>(longueur));
+    std::vector<std::vector<Case>> tab (hauteur,std::vector<Case>(longueur));
 
-        this->terrain() = tab;
+        d_terrain = tab;
 
         bool haut, droite, bas, gauche;
         int valeurCase;
@@ -40,7 +40,7 @@ void TerrainMursFins::charger(const std::string &nomFichier)
         while (!f.eof()) {
             f >> haut >> droite >> bas >> gauche >> valeurCase;
 
-            Case *c = new Case {haut, droite, bas, gauche, valeurCase};
+            Case c {haut, droite, bas, gauche, valeurCase};
             d_terrain[ligne][colonne] = c;
             ++colonne;
 
@@ -86,20 +86,20 @@ bool TerrainMursFins::fin() const {
 
 bool TerrainMursFins::estMurHaut(const Position &pos) const
 {
-    return d_terrain[pos.y()][pos.x()]->estMurHaut();
+    return d_terrain[pos.y()][pos.x()].estMurHaut();
 }
 
 bool TerrainMursFins::estMurDroit(const Position &pos) const
 {
-    return d_terrain[pos.y()][pos.x()]->estMurDroit();
+    return d_terrain[pos.y()][pos.x()].estMurDroit();
 }
 
 bool TerrainMursFins::estMurBas(const Position &pos) const
 {
-    return d_terrain[pos.y()][pos.x()]->estMurBas();
+    return d_terrain[pos.y()][pos.x()].estMurBas();
 }
 
 bool TerrainMursFins::estMurGauche(const Position &pos) const
 {
-    return d_terrain[pos.y()][pos.x()]->estMurGauche();
+    return d_terrain[pos.y()][pos.x()].estMurGauche();
 }

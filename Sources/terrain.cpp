@@ -25,17 +25,17 @@ Terrain::Terrain(int longueur, int hauteur, int nbMiroirs, int nbSemiMiroirs, in
 
 Terrain::~Terrain()
 {
-    for(int i = 0; i < d_hauteur; ++i)
-        for (int j = 0; j < d_longueur; j++)
-            delete d_terrain[i][j];
+    //for(int i = 0; i < d_hauteur; ++i)
+      //  for (int j = 0; j < d_longueur; j++)
+           // delete d_terrain[i][j];
 }
 
-std::vector<std::vector<Case*>>& Terrain::terrain()
+std::vector<std::vector<Case>>& Terrain::terrain()
 {
     return d_terrain;
 }
 
-const std::vector<std::vector<Case*>>& Terrain::terrain() const
+const std::vector<std::vector<Case>>& Terrain::terrain() const
 {
     return d_terrain;
 }
@@ -52,7 +52,7 @@ void Terrain::print(std::ostream &ost) const
     {
         for(int j = 0; j < d_terrain[i].size(); ++j)
         {
-            std::cout << d_terrain[i][j]->valeur() << " ";
+            std::cout << d_terrain[i][j].valeur() << " ";
         }
 
         std::cout << std::endl;
@@ -127,7 +127,7 @@ void Terrain::nbCibles(int nbCibles)
 
 bool Terrain::positionLibre(Position &pos) const
 {
-    return d_terrain[pos.y()][pos.x()]->valeur() == LIBRE ;
+    return d_terrain[pos.y()][pos.x()].valeur() == LIBRE ;
 }
 
 bool Terrain::positionValide(Position &pos) const
@@ -137,7 +137,7 @@ bool Terrain::positionValide(Position &pos) const
 
 void Terrain::placeElement(int element, const Position &pos)
 {
-    d_terrain[pos.y()][pos.x()]->changerValeur(element);
+    d_terrain[pos.y()][pos.x()].changerValeur(element);
 }
 
 Position Terrain::saisirPositionMiroir()
@@ -233,17 +233,17 @@ void Terrain::placerMiroirs()
 
 void Terrain::detruitCible(Position &pos)
 {
-    d_terrain[pos.y()][pos.x()]->changerValeur(LIBRE);
+    d_terrain[pos.y()][pos.x()].changerValeur(LIBRE);
 }
 
 bool Terrain::estCible(const Position &pos) const
 {
-    return d_terrain[pos.y()][pos.x()]->valeur() == CIBLE;
+    return d_terrain[pos.y()][pos.x()].valeur() == CIBLE;
 }
 
 int Terrain::typeMiroir(const Position &pos) const
 {
-    return d_terrain[pos.y()][pos.x()]->valeur();
+    return d_terrain[pos.y()][pos.x()].valeur();
 }
 
 

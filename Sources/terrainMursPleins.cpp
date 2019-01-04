@@ -38,12 +38,12 @@ bool TerrainMursPleins::caseSuivanteEstLibre(const Position &pos, int direction)
 
 void TerrainMursPleins::placeElement(int element, const Position &pos)
 {
-    d_terrain[pos.y()][pos.x()]->changerValeur( element);
+    d_terrain[pos.y()][pos.x()].changerValeur( element);
 }
 
 bool TerrainMursPleins::estMur(const Position &pos) const
 {
-    return d_terrain[pos.y()][pos.x()]->valeur() == MUR;
+    return d_terrain[pos.y()][pos.x()].valeur() == MUR;
 }
 
 bool TerrainMursPleins::fin() const
@@ -69,18 +69,18 @@ void TerrainMursPleins::charger(const std::string &nomFichier)
     d_nbSemiMiroirs = nbSemiMiroirs;
     d_nbCibles = nbCibles;
 
-    std::vector<std::vector<Case*>> tab (static_cast<unsigned int>(hauteur), std::vector<Case*>(
+    std::vector<std::vector<Case>> tab (static_cast<unsigned int>(hauteur), std::vector<Case>(
             static_cast<unsigned int>(longueur)));
 
-    this->terrain() = tab;
+    d_terrain = tab;
 
     int valeurCase;
 
     while (!f.eof())
     {
         f >> valeurCase;
-        Case *e = new Case{valeurCase};
-        this->terrain()[ligne][colonne] = e;
+        Case c = Case{valeurCase};
+        terrain()[ligne][colonne] = c;
         ++colonne;
 
         if (colonne == longueur)
