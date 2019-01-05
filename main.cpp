@@ -60,6 +60,7 @@ void run(Laser l,Terrain &t, Affichage &a)
     //bool laserEstBloque = false;
     t.placerMiroirs();
     a.afficherMiroirs(t);
+    a.afficherSemiMiroirs(t);
     a.afficherLaserPremierTraitGrille(l);
 
     while ( l.peutAvancer() )
@@ -77,27 +78,42 @@ int main() {
 
 
     // --------------------- Mur Plein ----------------------
-    /*
+
     TerrainMursPleins *t = new TerrainMursPleins{};
-    t->charger("../testTerrainMursPleins1.txt");
-    */
+    t->charger("../testTerrainMursPleinsAvecSemiMiroirs1.txt");
+
 
 
     // --------------------- Mur Fin ----------------------
-
+    /*
     TerrainMursFins *t = new TerrainMursFins{};
     t->charger("../testTerrainMursFins2.txt");
+    */
 
     t->print(std::cout);
 
-    Laser l { {0,0}, 1 , t};
+
+    // ------------------------------------------------
+    // creation et initialisation des tableau du laser
+    //  --> tableau de positions et tableau de directions
+
+    std::vector<Position> tableauDePositionsDuLaser;
+    tableauDePositionsDuLaser.push_back( Position {0,0} );
+
+    std::vector<int> tableauDeDirectionsDuLaser;
+    tableauDeDirectionsDuLaser.push_back(1);
+
+
+    // creation et initialisation du laser
+    //  --> grace au constructeur du laser avec un tableau de positions, un tableau de directions et un terrain
+    Laser l { tableauDePositionsDuLaser, tableauDeDirectionsDuLaser , t};
 
     Affichage a{t->longueur(), t->hauteur()};
 
     opengraphsize(1000,800);
 
-    //a.afficherTerrainMursPleins(*t);
-    a.afficherTerrainMursFins(*t);
+    a.afficherTerrainMursPleins(*t);
+    //a.afficherTerrainMursFins(*t);
 
     run(l, *t, a);
 

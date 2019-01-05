@@ -9,7 +9,7 @@
 #include "../Headers/laser.h"
 #include "../Headers/terrain.h"
 
-Laser::Laser(const Position &pos, int direction, Terrain *t) : d_terrain{t}, d_pos{pos}, d_direction{direction},d_nbPoints{0}
+Laser::Laser(const std::vector<Position> &pos, const std::vector<int> directions, Terrain *t) : d_terrain{t}, d_positions{pos}, d_directions{directions},d_nbPoints{0}
 {
 //    d_terrain = &t;
 }
@@ -26,17 +26,27 @@ void Laser::incrementePoint()
 
 bool Laser::estSurCible() const
 {
-     return d_terrain->estCible(d_pos);
+    for ( int i = 0 ; i < d_positions.size() ; ++i)
+    {
+        if ( d_terrain->estCible(d_positions[i])) return true;
+    }
+
+    return false;
 
 }
 
-Position Laser::position() const
+std::vector<Position> Laser::positions() const
 {
-    return d_pos;
+    return d_positions;
 }
 
-int Laser::direction() const {
-    return d_direction;
+Position Laser::position(int i) const
+{
+    return d_positions[i];
+}
+
+int Laser::direction(int i) const {
+    return d_directions[i];
 }
 
 int Laser::nbPoints() const {
@@ -49,44 +59,44 @@ Terrain* Laser::terrain() const
 }
 
 
-void Laser::deplacementHaut()
+void Laser::deplacementHaut(int indice)
 {
-    d_pos = Position{d_pos.x(), d_pos.y() - 1};
+    d_positions[indice] = Position { d_positions[indice].x(), d_positions[indice].y() - 1 };
 }
 
-void Laser::deplacementDroite()
+void Laser::deplacementDroite(int indice)
 {
-    d_pos = Position{d_pos.x() + 1, d_pos.y()};
+    d_positions[indice] = Position { d_positions[indice].x() + 1, d_positions[indice].y() };
 }
 
-void Laser::deplacementBas()
+void Laser::deplacementBas(int indice)
 {
-    d_pos = Position{d_pos.x(), d_pos.y() + 1};
+    d_positions[indice] = Position { d_positions[indice].x(), d_positions[indice].y() + 1 };
 }
 
-void Laser::deplacementGauche()
+void Laser::deplacementGauche(int indice)
 {
-    d_pos = Position{d_pos.x() - 1, d_pos.y()};
+    d_positions[indice] = Position { d_positions[indice].x() - 1, d_positions[indice].y() };
 }
 
-void Laser::changerPosition(int direction)
+void Laser::changerPosition(int direction, int indice)
 {
     switch(direction)
     {
         case 0 :
-            deplacementHaut();
+            deplacementHaut(indice);
             break;
 
         case 1 :
-            deplacementDroite();
+            deplacementDroite(indice);
             break;
 
         case 2 :
-            deplacementBas();
+            deplacementBas(indice);
             break;
 
         case 3 :
-            deplacementGauche();
+            deplacementGauche(indice);
             break;
 
         default :
@@ -94,7 +104,7 @@ void Laser::changerPosition(int direction)
     }
 }
 
-void Laser::changerDirection(int miroir)
+void Laser::changerDirection(int miroir, int indice)
 {
     switch(miroir)
     {
@@ -107,35 +117,59 @@ void Laser::changerDirection(int miroir)
         // '\' miroir normal
         case 2 :
 
-            if(d_direction == HAUT) d_direction = GAUCHE ;
+            if(d_directions[indice] == HAUT) d_directions[indice] = GAUCHE ;
 
-            else if(d_direction == DROITE) d_direction = BAS ;
+            else if(d_directions[indice] == DROITE) d_directions[indice] = BAS ;
 
-            else if(d_direction == BAS) d_direction = DROITE ;
+            else if(d_directions[indice] == BAS) d_directions[indice] = DROITE ;
 
-            else d_direction = HAUT ;
+            else d_directions[indice] = HAUT ;
 
             break;
 
         // '/' miroir normal
         case 3 :
 
-            if(d_direction == HAUT) d_direction = DROITE ;
+            if(d_directions[indice] == HAUT) d_directions[indice] = DROITE ;
 
-            else if(d_direction == DROITE) d_direction = HAUT ;
+            else if(d_directions[indice] == DROITE) d_directions[indice] = HAUT ;
 
-            else if(d_direction == BAS) d_direction = GAUCHE ;
+            else if(d_directions[indice] == BAS) d_directions[indice] = GAUCHE ;
 
-            else d_direction = BAS ;
+            else d_directions[indice] = BAS ;
 
             break;
 
         // '\' semi miroir
         case 4 :
+
+            d_directions.push_back(d_directions[indice]) ;
+            d_positions.push_back(d_positions[indice]);
+
+            if(d_directions[indice] == HAUT) d_directions[indice] = GAUCHE ;
+
+            else if(d_directions[indice] == DROITE) d_directions[indice] = BAS ;
+
+            else if(d_directions[indice] == BAS) d_directions[indice] = DROITE ;
+
+            else d_directions[indice] = HAUT ;
+
             break;
 
         // '/' semi miroir
         case 5 :
+
+            d_directions.push_back(d_directions[indice]) ;
+            d_positions.push_back(d_positions[indice]);
+
+            if(d_directions[indice] == HAUT) d_directions[indice] = DROITE ;
+
+            else if(d_directions[indice] == DROITE) d_directions[indice] = HAUT ;
+
+            else if(d_directions[indice] == BAS) d_directions[indice] = GAUCHE ;
+
+            else d_directions[indice] = BAS ;
+
             break;
 
         default :
@@ -145,30 +179,43 @@ void Laser::changerDirection(int miroir)
 
 void Laser::avance()
 {
-    changerPosition(d_direction);
-
-    if (estSurCible())
+    for ( int i = 0 ; i < d_directions.size() ; ++i )
     {
-        incrementePoint();
-        detruitCible();
+
+        changerPosition(d_directions[i], i);
+
+        if (estSurCible())
+        {
+            incrementePoint();
+            detruitCibles();
+        }
+
+        int valeur = d_terrain->typeMiroir(d_positions[i]);
+
+        if(valeur != LIBRE) changerDirection(valeur, i);
     }
 
 
 
-    int valeur = d_terrain->typeMiroir(d_pos);
 
-    if(valeur != LIBRE) changerDirection(valeur);
 }
 
 bool Laser::peutAvancer()
 {
-    return d_terrain->caseSuivanteEstLibre(d_pos, d_direction);
+    for ( int i = 0 ; i < d_positions.size() ; ++i )
+    {
+        if ( d_terrain->caseSuivanteEstLibre(d_positions[i], d_directions[i]) ) return true;
+    }
+    return false;
 }
 
-void Laser::detruitCible()
+void Laser::detruitCibles()
 {
-    d_terrain->detruitCible(d_pos);
-    d_terrain->decrementeNombreDeCibles();
+    for ( int i = 0 ; i < d_positions.size() ; ++i )
+    {
+        d_terrain->detruitCible(d_positions[i]);
+        d_terrain->decrementeNombreDeCibles();
+    }
 }
 
 

@@ -12,5 +12,6 @@ add_executable(Laser main.cpp
         Headers/terrain.h Sources/terrain.cpp
         Headers/terrainMursFins.h Sources/terrainMursFins.cpp
         Headers/terrainMursPleins.h Sources/terrainMursPleins.cpp
-        Headers/element.h Sources/element.cpp
-        Headers/graphics.h Sources/winbgi.cpp)
+        Headers/graphics.h Sources/winbgi.cpp
+
+        )

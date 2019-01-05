@@ -3,8 +3,7 @@
 
 TEST_CASE("Les opérations du terrainMursPleins sont correctes")
 {
-    SUBCASE("Le constructeur de terrainMursPleins fonctionne")
-    {
+    SUBCASE("Le constructeur de terrainMursPleins fonctionne") {
         int longueur = 2, hauteur = 3, nbMiroirs = 1, nbSemiMiroirs = 0, nbCibles = 1;
         TerrainMursPleins t{longueur, hauteur, nbMiroirs, nbSemiMiroirs, nbCibles};
 
@@ -17,48 +16,54 @@ TEST_CASE("Les opérations du terrainMursPleins sont correctes")
 
     }
 
-    SUBCASE{"position libre fonctionne"}{
-        int longueur = 2, hauteur = 3, nbMiroirs = 1, nbSemiMiroirs = 0, nbCibles = 1;
-        TerrainMursPleins t{longueur, hauteur, nbMiroirs, nbSemiMiroirs, nbCibles};
+    SUBCASE("position libre fonctionne") {
+        TerrainMursPleins t{};
+        t.charger("testTerrainMursPleins1.txt");
 
         Position p{1,1};
-        REQUIRE_EQ(t.positionLibre(p),true);
+        REQUIRE_EQ(t.positionLibre(p), false);
+
+        p = {2,1};
+        REQUIRE_EQ(t.positionLibre(p), true);
     }
 
-    SUBCASE{"position valide fonctionne"}{
-        int longueur = 2, hauteur = 3, nbMiroirs = 1, nbSemiMiroirs = 0, nbCibles = 1;
-        TerrainMursPleins t{longueur, hauteur, nbMiroirs, nbSemiMiroirs, nbCibles};
+    SUBCASE("position valide fonctionne") {
+        TerrainMursPleins t{};
+        t.charger("testTerrainMursPleins1.txt");
 
         Position p{1,1};
         REQUIRE_EQ(t.positionValide(p),true);
-        p{4,4};
+        p = {8,0};
         REQUIRE_EQ(t.positionValide(p),false);
     }
 
 
-    SUBCASE{"le placement d'element est correct"}{
-        int longueur = 2, hauteur = 2, nbMiroirs = 1, nbSemiMiroirs = 0, nbCibles = 1;
-        TerrainMursPleins t{longueur, hauteur, nbMiroirs, nbSemiMiroirs, nbCibles};
+    SUBCASE("le placement d'element est correct") {
+        TerrainMursPleins t{};
+        t.charger("testTerrainMursPleins1.txt");
 
         Position position{1,0};
         Position position2{4,2};
-        t.placeElement(1,position);
-        t.placeElement(4,position2);
+        t.placeElement(MUR,position);
+        t.placeElement(CIBLE,position2);
 
         REQUIRE_EQ(t.estMur(position),true);
         REQUIRE_EQ(t.estCible(position2),true);
     }
 
-    SUBCASE{"la prochaine case est correctement identifie"}{
+    SUBCASE("la prochaine case est correctement identifiee") {
         int longueur = 2, hauteur = 2, nbMiroirs = 1, nbSemiMiroirs = 0, nbCibles = 1;
         TerrainMursPleins t{longueur, hauteur, nbMiroirs, nbSemiMiroirs, nbCibles};
 
         Position position{1,0};
         Position position2{1,2};
-        t.placeElement(1,position);
-        t.placeElement(1,position2);
+        t.placeElement(MUR,position);
+        t.placeElement(MIROIR2,position2);
 
-        REQUIRE_EQ(t.estMur())
+        REQUIRE_EQ(t.estMur(position), true);
+        REQUIRE_EQ(t.estMur(position2), false);
+        REQUIRE_EQ(t.typeMiroir(position2), MIROIR2);
+        REQUIRE_EQ(t.estMur( Position { 2,2 }), false);
 
         Position p{1,1};
         REQUIRE_EQ(t.caseSuivanteEstLibre(p,0),false);
@@ -67,18 +72,18 @@ TEST_CASE("Les opérations du terrainMursPleins sont correctes")
         REQUIRE_EQ(t.caseSuivanteEstLibre(p,3),true);
     }
 
-    SUBCASE{"destrucition cible marche"}{
+    SUBCASE("destrucition cible marche"){
         int longueur = 2, hauteur = 2, nbMiroirs = 1, nbSemiMiroirs = 0, nbCibles = 1;
         TerrainMursPleins t{longueur, hauteur, nbMiroirs, nbSemiMiroirs, nbCibles};
 
         Position position{1,0};
-        t.placeElement(4,position));
+        t.placeElement(CIBLE,position);
         t.detruitCible(position);
 
         REQUIRE_EQ(t.estCible(position),false);
     }
 
-    SUBCASE{"type miroir marche"}{
+    SUBCASE("type miroir marche"){
         int longueur = 2, hauteur = 2, nbMiroirs = 1, nbSemiMiroirs = 0, nbCibles = 1;
         TerrainMursPleins t{longueur, hauteur, nbMiroirs, nbSemiMiroirs, nbCibles};
 
@@ -91,34 +96,41 @@ TEST_CASE("Les opérations du terrainMursPleins sont correctes")
         REQUIRE_EQ(t.typeMiroir(position2),2);
     }
 
-    SUBCASE{"saisir la position d'un mur fonctionne"}{
+    SUBCASE("saisir la position d'un mur fonctionne"){
 
     }
 
-    SUBCASE{"la methode charger fonctionne"}{
-           TerrainMursPleins t{};
-           t.charger("../testTerrainMursFins2.txt");
+    SUBCASE("la methode charger fonctionne"){
+        TerrainMursPleins t{};
+        t.charger("../testTerrainMursPleins2.txt");
 
-           REQUIRE_EQ(t.hauteur(),5)
-           REQUIRE_EQ(t.longueur(),5)
-           REQUIRE_EQ(t.nbMiroirs(),5)
-           REQUIRE_EQ(t.nbSemiMiroirs(),0)
-           REQUIRE_EQ(t.nbCibles(),1)
+        REQUIRE_EQ(t.hauteur(),5);
+        REQUIRE_EQ(t.longueur(),5);
+        REQUIRE_EQ(t.nbMiroirs(),5);
+        REQUIRE_EQ(t.nbSemiMiroirs(),0);
+        REQUIRE_EQ(t.nbCibles(),1);
 
-           Position p{0,4};
-           REQUIRE_EQ(t.typeMiroir(p),1);
-            p{1,0};
-           REQUIRE_EQ(t.typeMiroir(p),1);
-            p{1,1};
-           REQUIRE_EQ(t.typeMiroir(p),1);
-            p{2,1};
-           REQUIRE_EQ(t.typeMiroir(p),1);
-            p{2,2};
-           REQUIRE_EQ(t.typeMiroir(p),1);
-            p{3,3};
-           REQUIRE_EQ(t.typeMiroir(p),1);
-           p{3,2};
-           REQUIRE_EQ(t.estCible(p),true);
+        Position p {4,0};
+
+        REQUIRE_EQ(t.typeMiroir(p),1);
+
+        p = {1,0};
+        REQUIRE_EQ(t.typeMiroir(p),0);
+
+        p = {1,1};
+        REQUIRE_EQ(t.typeMiroir(p),1);
+
+        p = {2,1};
+        REQUIRE_EQ(t.typeMiroir(p),0);
+
+        p = {2,2};
+        REQUIRE_EQ(t.typeMiroir(p),1);
+
+        p = {3,3};
+        REQUIRE_EQ(t.typeMiroir(p),1);
+
+        p = {2,3};
+        REQUIRE_EQ(t.estCible(p),true);
 
     }
 }

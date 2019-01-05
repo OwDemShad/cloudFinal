@@ -69,10 +69,23 @@ public:
     void afficherMiroir(const Position &depart, const Position &arrivee) const ;
 
     /**
+     * Affiche un semi miroir en diagonale d'une position de part a une position d'arrivee
+     * @param [in]depart - position de depart
+     * @param [in] arrivee - position d'arrivee
+     */
+    void afficherSemiMiroir(const Position &depart, const Position &arrivee) const ;
+
+    /**
      * Affiche successivement tous les miroirs du terrain en le parcourant et en appelant la methode afficherMiroir(depart, arrivee)
      * @param [in] terrain - terrain dont il faut afficher les miroirs
      */
     void afficherMiroirs(const Terrain &terrain) const ;
+
+    /**
+     * Affiche successivement tous les semi miroirs du terrain en le parcourant et en appelant la methode afficherSemiMiroir(depart, arrivee)
+     * @param [in] terrain - terrain dont il faut afficher les semi miroirs
+     */
+    void afficherSemiMiroirs(const Terrain &terrain) const ;
 
     /**
      * Affiche un demi trait de laser, c'est a dire un trait d'une longueur de d_tailleCase / 2

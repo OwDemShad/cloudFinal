@@ -143,14 +143,20 @@ void Affichage::afficherTerrainMursFins(const Terrain &terrain) const
     }
 }
 
-//void Affichage::update(const Terrain &t) const
-//{
-//
-//}
-
 void Affichage::afficherMiroir(const Position &depart, const Position &arrivee) const
 {
     changerCouleurTrait(GREEN);
+    changerEpaisseurTrait(3);
+
+    line(depart.x(), depart.y(), arrivee.x(), arrivee.y());
+
+    changerEpaisseurTrait(1);
+    changerCouleurTrait(WHITE);
+}
+
+void Affichage::afficherSemiMiroir(const Position &depart, const Position &arrivee) const
+{
+    changerCouleurTrait(BLUE);
     changerEpaisseurTrait(3);
 
     line(depart.x(), depart.y(), arrivee.x(), arrivee.y());
@@ -177,6 +183,26 @@ void Affichage::afficherMiroirs(const Terrain &t) const
 
                 afficherMiroir ( Position { DECALAGEX + j * d_tailleCase + d_tailleCase, DECALAGEY + i * d_tailleCase },
                                 Position { DECALAGEX + j * d_tailleCase, DECALAGEY + i * d_tailleCase + d_tailleCase } ) ;
+            }
+        }
+    }
+}
+
+void Affichage::afficherSemiMiroirs(const Terrain &t) const
+{
+    for ( int i= 0 ; i < d_hauteur ; ++i )
+    {
+        for ( int j = 0 ; j < d_longueur ; ++j )
+        {
+            if ( t.terrain()[i][j].valeur() == SEMIMIROIR1 )
+            {
+                afficherSemiMiroir ( Position { DECALAGEX + j * d_tailleCase, DECALAGEY + i * d_tailleCase },
+                                 Position { DECALAGEX + j * d_tailleCase + d_tailleCase, DECALAGEY + i * d_tailleCase + d_tailleCase } ) ;
+            }
+            else if ( t.terrain()[i][j].valeur() == SEMIMIROIR2 )
+            {
+                afficherSemiMiroir ( Position { DECALAGEX + j * d_tailleCase + d_tailleCase, DECALAGEY + i * d_tailleCase },
+                                 Position { DECALAGEX + j * d_tailleCase, DECALAGEY + i * d_tailleCase + d_tailleCase } ) ;
             }
         }
     }
@@ -216,90 +242,100 @@ void Affichage::afficherLaserUnDemiTraitSensOuest(const Position &depart, const 
 
 void Affichage::afficherLaserPremierDemiTrait(const Laser &laser) const
 {
-    switch ( laser.direction() )
+    for ( int i = 0 ; i < laser.positions().size() ; ++i )
     {
-        case 0 :
-            afficherLaserUnDemiTraitSensNord ( Position { DECALAGEX + laser.position().x() * d_tailleCase + d_tailleCase / 2,
-                                                          DECALAGEY + laser.position().y() * d_tailleCase + d_tailleCase / 2},
-                                               Position { DECALAGEX + laser.position().x() * d_tailleCase + d_tailleCase / 2,
-                                                          DECALAGEY + laser.position().y() * d_tailleCase} ) ;
-            break;
+        switch ( laser.direction(i) )
+        {
+            case 0 :
+                afficherLaserUnDemiTraitSensNord ( Position { DECALAGEX + laser.position(i).x() * d_tailleCase + d_tailleCase / 2,
+                                                              DECALAGEY + laser.position(i).y() * d_tailleCase + d_tailleCase / 2},
+                                                   Position { DECALAGEX + laser.position(i).x() * d_tailleCase + d_tailleCase / 2,
+                                                              DECALAGEY + laser.position(i).y() * d_tailleCase} ) ;
+                break;
 
-        case 1 :
-            afficherLaserUnDemiTraitSensEst ( Position { DECALAGEX + laser.position().x() * d_tailleCase + d_tailleCase / 2,
-                                                         DECALAGEY + laser.position().y() * d_tailleCase + d_tailleCase / 2},
-                                              Position { DECALAGEX + ( laser.position().x() + 1 ) * d_tailleCase,
-                                                         DECALAGEY + laser.position().y() * d_tailleCase + d_tailleCase / 2} ) ;
-            break;
+            case 1 :
+                afficherLaserUnDemiTraitSensEst ( Position { DECALAGEX + laser.position(i).x() * d_tailleCase + d_tailleCase / 2,
+                                                             DECALAGEY + laser.position(i).y() * d_tailleCase + d_tailleCase / 2},
+                                                  Position { DECALAGEX + (laser.position(i).x() + 1 ) * d_tailleCase,
+                                                             DECALAGEY + laser.position(i).y() * d_tailleCase + d_tailleCase / 2} ) ;
+                break;
 
-        case 2 :
-            afficherLaserUnDemiTraitSensSud ( Position { DECALAGEX + laser.position().x() * d_tailleCase + d_tailleCase / 2,
-                                                        DECALAGEY + laser.position().y() * d_tailleCase + d_tailleCase / 2 },
-                                             Position { DECALAGEX + laser.position().x() * d_tailleCase + d_tailleCase / 2,
-                                                        DECALAGEY + ( laser.position().y() + 1 ) * d_tailleCase } ) ;
-            break;
+            case 2 :
+                afficherLaserUnDemiTraitSensSud ( Position { DECALAGEX + laser.position(i).x() * d_tailleCase + d_tailleCase / 2,
+                                                             DECALAGEY + laser.position(i).y() * d_tailleCase + d_tailleCase / 2 },
+                                                  Position { DECALAGEX + laser.position(i).x() * d_tailleCase + d_tailleCase / 2,
+                                                             DECALAGEY + (laser.position(i).y() + 1 ) * d_tailleCase } ) ;
+                break;
 
-        case 3 :
-            afficherLaserUnDemiTraitSensOuest ( Position { DECALAGEX + laser.position().x() * d_tailleCase + d_tailleCase / 2,
-                                                           DECALAGEY + laser.position().y() * d_tailleCase + d_tailleCase / 2},
-                                                Position { DECALAGEX + laser.position().x() * d_tailleCase,
-                                                           DECALAGEY + laser.position().y() * d_tailleCase + d_tailleCase / 2} ) ;
-            break;
+            case 3 :
+                afficherLaserUnDemiTraitSensOuest ( Position { DECALAGEX + laser.position(i).x() * d_tailleCase + d_tailleCase / 2,
+                                                               DECALAGEY + laser.position(i).y() * d_tailleCase + d_tailleCase / 2},
+                                                    Position { DECALAGEX + laser.position(i).x() * d_tailleCase,
+                                                               DECALAGEY + laser.position(i).y() * d_tailleCase + d_tailleCase / 2} ) ;
+                break;
 
-        default :
-            break;
+            default :
+                break;
+        }
     }
 }
 
 void Affichage::afficherLaserDeuxiemeDemiTrait(const Laser &laser) const
 {
-
-    switch ( laser.direction() )
+    for ( int i = 0 ; i < laser.positions().size() ; ++i )
     {
-        case 0 :
-            afficherLaserUnDemiTraitSensNord ( Position { DECALAGEX + laser.position().x() * d_tailleCase + d_tailleCase / 2,
-                                                          DECALAGEY + laser.position().y() * d_tailleCase},
-                                               Position { DECALAGEX + laser.position().x() * d_tailleCase + d_tailleCase / 2,
-                                                          DECALAGEY + laser.position().y() * d_tailleCase - d_tailleCase / 2} ) ;
-            break;
 
-        case 1 :
-            afficherLaserUnDemiTraitSensEst ( Position { DECALAGEX + ( laser.position().x() + 1 ) * d_tailleCase,
-                                                         DECALAGEY + laser.position().y() * d_tailleCase + d_tailleCase / 2},
-                                              Position { DECALAGEX + ( laser.position().x() + 1 ) * d_tailleCase + d_tailleCase / 2,
-                                                         DECALAGEY + laser.position().y() * d_tailleCase + d_tailleCase / 2} ) ;
-            break;
+        switch ( laser.direction(i) )
+        {
+            case 0 :
+                afficherLaserUnDemiTraitSensNord ( Position { DECALAGEX + laser.position(i).x() * d_tailleCase + d_tailleCase / 2,
+                                                              DECALAGEY + laser.position(i).y() * d_tailleCase},
+                                                   Position { DECALAGEX + laser.position(i).x() * d_tailleCase + d_tailleCase / 2,
+                                                              DECALAGEY + laser.position(i).y() * d_tailleCase - d_tailleCase / 2} ) ;
+                break;
 
-        case 2 :
-            afficherLaserUnDemiTraitSensSud ( Position { DECALAGEX + laser.position().x() * d_tailleCase + d_tailleCase / 2,
-                                                         DECALAGEY + ( laser.position().y() + 1 ) * d_tailleCase},
-                                              Position { DECALAGEX + laser.position().x() * d_tailleCase + d_tailleCase / 2,
-                                                         DECALAGEY + ( laser.position().y() + 1 ) * d_tailleCase + d_tailleCase / 2} ) ;
-            break;
+            case 1 :
+                afficherLaserUnDemiTraitSensEst ( Position { DECALAGEX + (laser.position(i).x() + 1 ) * d_tailleCase,
+                                                             DECALAGEY + laser.position(i).y() * d_tailleCase + d_tailleCase / 2},
+                                                  Position { DECALAGEX + (laser.position(i).x() + 1 ) * d_tailleCase + d_tailleCase / 2,
+                                                             DECALAGEY + laser.position(i).y() * d_tailleCase + d_tailleCase / 2} ) ;
+                break;
 
-        case 3 :
-            afficherLaserUnDemiTraitSensOuest ( Position { DECALAGEX + laser.position().x() * d_tailleCase,
-                                                           DECALAGEY + laser.position().y() * d_tailleCase + d_tailleCase / 2},
-                                                Position { DECALAGEX + laser.position().x() * d_tailleCase - d_tailleCase / 2,
-                                                           DECALAGEY + laser.position().y() * d_tailleCase + d_tailleCase / 2} ) ;
-            break;
+            case 2 :
+                afficherLaserUnDemiTraitSensSud ( Position { DECALAGEX + laser.position(i).x() * d_tailleCase + d_tailleCase / 2,
+                                                             DECALAGEY + (laser.position(i).y() + 1 ) * d_tailleCase},
+                                                  Position { DECALAGEX + laser.position(i).x() * d_tailleCase + d_tailleCase / 2,
+                                                             DECALAGEY + (laser.position(i).y() + 1 ) * d_tailleCase + d_tailleCase / 2} ) ;
+                break;
 
-        default :
-            break;
+            case 3 :
+                afficherLaserUnDemiTraitSensOuest ( Position { DECALAGEX + laser.position(i).x() * d_tailleCase,
+                                                               DECALAGEY + laser.position(i).y() * d_tailleCase + d_tailleCase / 2},
+                                                    Position { DECALAGEX + laser.position(i).x() * d_tailleCase - d_tailleCase / 2,
+                                                               DECALAGEY + laser.position(i).y() * d_tailleCase + d_tailleCase / 2} ) ;
+                break;
+
+            default :
+                break;
+        }
     }
 }
 
 void Affichage::afficherLaserPremierTraitGrille(const Laser &laser) const
 {
-    afficherLaserUnDemiTrait ( Position { DECALAGEX + laser.position().x() * d_tailleCase - d_tailleCase / 4,
-                                          DECALAGEY + laser.position().y() * d_tailleCase + d_tailleCase / 2 },
-                               Position { DECALAGEX + laser.position().x() * d_tailleCase,
-                                          DECALAGEY + laser.position().y() * d_tailleCase + d_tailleCase / 2 } ) ;
+    for ( int i = 0 ; i < laser.positions().size() ; ++i )
+    {
 
-    afficherLaserUnDemiTrait ( Position { DECALAGEX + laser.position().x() * d_tailleCase,
-                                          DECALAGEY + laser.position().y() * d_tailleCase + d_tailleCase / 2 },
-                               Position { DECALAGEX + laser.position().x() * d_tailleCase + d_tailleCase / 2,
-                                          DECALAGEY + laser.position().y() * d_tailleCase + d_tailleCase / 2 }) ;
+        afficherLaserUnDemiTrait ( Position { DECALAGEX + laser.position(i).x() * d_tailleCase - d_tailleCase / 4,
+                                              DECALAGEY + laser.position(i).y() * d_tailleCase + d_tailleCase / 2 },
+                                   Position { DECALAGEX + laser.position(i).x() * d_tailleCase,
+                                              DECALAGEY + laser.position(i).y() * d_tailleCase + d_tailleCase / 2 } ) ;
+
+        afficherLaserUnDemiTrait ( Position { DECALAGEX + laser.position(i).x() * d_tailleCase,
+                                              DECALAGEY + laser.position(i).y() * d_tailleCase + d_tailleCase / 2 },
+                                   Position { DECALAGEX + laser.position(i).x() * d_tailleCase + d_tailleCase / 2,
+                                              DECALAGEY + laser.position(i).y() * d_tailleCase + d_tailleCase / 2 }) ;
+    }
 }
 
 

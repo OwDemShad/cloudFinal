@@ -19,11 +19,15 @@ const int LIBRE = 0;
 
 const int MUR = 1;
 
-const int MIROIR1 = 2;
+const int MIROIR1 = 2;  // '\'
 
-const int MIROIR2 = 3;
+const int MIROIR2 = 3;  // '/'
 
-const int CIBLE = 4;
+const int CIBLE = 6;
+
+const int SEMIMIROIR1 = 4;  // '\'
+
+const int SEMIMIROIR2 = 5;  // '/'
 
 
 class Terrain

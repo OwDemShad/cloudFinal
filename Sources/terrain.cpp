@@ -210,7 +210,7 @@ void Terrain::placerMiroirs()
         {
             std::cout << "entrer la position du miroir : " << i << std::endl;
             Position pos = saisirPositionMiroir();
-            miroir =saisieTypeMiroir(true);
+            miroir = saisieTypeMiroir(true);
             placeElement(miroir+1,pos);
             print(std::cout);
 
@@ -224,8 +224,9 @@ void Terrain::placerMiroirs()
         {
             std::cout << "entrer la position du semi miroir : " << i << std::endl;
             Position pos = saisirPositionMiroir();
-            miroir =saisieTypeMiroir(false);
+            miroir = saisieTypeMiroir(false);
             placeElement(miroir+1,pos);
+            print(std::cout);
         }
 
     }

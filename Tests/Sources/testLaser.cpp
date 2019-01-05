@@ -1,16 +1,24 @@
+#include <vector>
 #include "../Headers/doctest.h"
 #include "../../Headers/laser.h"
 
 TEST_CASE ("Les operations sur le laser fonctionnent parfaitement") {
     SUBCASE ("Le constructeur fonctionne correctement") {
+        std::vector<Position> positions;
+        std::vector<int> directions;
+
         Position p {2,3};
+        positions.push_back(p);
+
         int direction = 1; // vers l'est
+        directions.push_back(direction);
+
         Terrain *t;
 
-        Laser l {p, direction, t};
+        Laser l {positions, directions, t};
 
-        REQUIRE_EQ(l.position(), p);
-        REQUIRE_EQ(l.direction(), direction);
+        REQUIRE_EQ(l.position(0), p);
+        REQUIRE_EQ(l.direction(0), direction);
         REQUIRE_EQ(l.terrain(), t);
     }
 
@@ -21,7 +29,13 @@ TEST_CASE ("Les operations sur le laser fonctionnent parfaitement") {
         int direction = 1; // vers l'est
         Terrain *t;
 
-        Laser l {p, direction, t};
+        std::vector<Position> positions;
+        std::vector<int> directions;
+
+        positions.push_back(p);
+        directions.push_back(direction);
+
+        Laser l {positions, directions, t};
 
         l.incrementePoint();
 
@@ -33,9 +47,16 @@ TEST_CASE ("Les operations sur le laser fonctionnent parfaitement") {
         int direction = 1; // vers l'est
         Terrain *t;
 
+        std::vector<Position> positions;
+        std::vector<int> directions;
+
+        positions.push_back(p);
+        directions.push_back(direction);
+
+
         t->charger("testTerrainMursPleins1.txt");
 
-        Laser l {p, direction, t};
+        Laser l {positions, directions, t};
 
         REQUIRE_EQ(l.estSurCible(), true);
     }
@@ -45,9 +66,15 @@ TEST_CASE ("Les operations sur le laser fonctionnent parfaitement") {
         int direction = 1; // vers l'est
         Terrain *t;
 
-        Laser l {p, direction, t};
+        std::vector<Position> positions;
+        std::vector<int> directions;
 
-        REQUIRE_EQ(l.position(), p);
+        positions.push_back(p);
+        directions.push_back(direction);
+
+        Laser l {positions, directions, t};
+
+        REQUIRE_EQ(l.position(0), p);
     }
 
     SUBCASE ("La direction est correcte") {
@@ -55,9 +82,16 @@ TEST_CASE ("Les operations sur le laser fonctionnent parfaitement") {
         int direction = 1; // vers l'est
         Terrain *t;
 
-        Laser l {p, direction, t};
+        std::vector<Position> positions;
+        std::vector<int> directions;
 
-        REQUIRE_EQ(l.direction(), direction);
+        positions.push_back(p);
+        directions.push_back(direction);
+
+
+        Laser l {positions, directions, t};
+
+        REQUIRE_EQ(l.direction(0), direction);
     }
 
     SUBCASE ("Le nombre de points est correct") {
@@ -67,7 +101,14 @@ TEST_CASE ("Les operations sur le laser fonctionnent parfaitement") {
         int direction = 1; // vers l'est
         Terrain *t;
 
-        Laser l {p, direction, t};
+        std::vector<Position> positions;
+        std::vector<int> directions;
+
+        positions.push_back(p);
+        directions.push_back(direction);
+
+
+        Laser l {positions, directions, t};
 
         REQUIRE_EQ(l.nbPoints(), nbPoints);
     }
@@ -77,7 +118,14 @@ TEST_CASE ("Les operations sur le laser fonctionnent parfaitement") {
         int direction = 1; // vers l'est
         Terrain *t;
 
-        Laser l {p, direction, t};
+        std::vector<Position> positions;
+        std::vector<int> directions;
+
+        positions.push_back(p);
+        directions.push_back(direction);
+
+
+        Laser l {positions, directions, t};
 
         REQUIRE_EQ(l.terrain(), t);
     }
@@ -87,11 +135,18 @@ TEST_CASE ("Les operations sur le laser fonctionnent parfaitement") {
         int direction = 1; // vers l'est
         Terrain *t;
 
-        Laser l {p, direction, t};
+        std::vector<Position> positions;
+        std::vector<int> directions;
 
-        l.deplacementHaut();
+        positions.push_back(p);
+        directions.push_back(direction);
 
-        REQUIRE_EQ(l.position().y(), p.y() - 1);
+
+        Laser l {positions, directions, t};
+
+        l.deplacementHaut(0);
+
+        REQUIRE_EQ(l.position(0).y(), p.y() - 1);
     }
 
     SUBCASE ("Le deplacement vers la droite foncitonne") {
@@ -99,11 +154,18 @@ TEST_CASE ("Les operations sur le laser fonctionnent parfaitement") {
         int direction = 1; // vers l'est
         Terrain *t;
 
-        Laser l {p, direction, t};
+        std::vector<Position> positions;
+        std::vector<int> directions;
 
-        l.deplacementDroite();
+        positions.push_back(p);
+        directions.push_back(direction);
 
-        REQUIRE_EQ(l.position().x(), p.x() + 1);
+
+        Laser l {positions, directions, t};
+
+        l.deplacementDroite(0);
+
+        REQUIRE_EQ(l.position(0).x(), p.x() + 1);
     }
 
     SUBCASE ("Le deplacement vers le bas foncitonne") {
@@ -111,11 +173,18 @@ TEST_CASE ("Les operations sur le laser fonctionnent parfaitement") {
         int direction = 1; // vers l'est
         Terrain *t;
 
-        Laser l {p, direction, t};
+        std::vector<Position> positions;
+        std::vector<int> directions;
 
-        l.deplacementBas();
+        positions.push_back(p);
+        directions.push_back(direction);
 
-        REQUIRE_EQ(l.position().y(), p.y() + 1);
+
+        Laser l {positions, directions, t};
+
+        l.deplacementBas(0);
+
+        REQUIRE_EQ(l.position(0).y(), p.y() + 1);
     }
 
     SUBCASE ("Le deplacement vers le haut foncitonne") {
@@ -123,11 +192,18 @@ TEST_CASE ("Les operations sur le laser fonctionnent parfaitement") {
         int direction = 1; // vers l'est
         Terrain *t;
 
-        Laser l {p, direction, t};
+        std::vector<Position> positions;
+        std::vector<int> directions;
 
-        l.deplacementGauche();
+        positions.push_back(p);
+        directions.push_back(direction);
 
-        REQUIRE_EQ(l.position().x(), p.x() - 1);
+
+        Laser l {positions, directions, t};
+
+        l.deplacementGauche(0);
+
+        REQUIRE_EQ(l.position(0).x(), p.x() - 1);
     }
 
     SUBCASE ("Le changement de position fonctionne correctement") {
@@ -135,11 +211,18 @@ TEST_CASE ("Les operations sur le laser fonctionnent parfaitement") {
         int direction = 1; // vers l'est
         Terrain *t;
 
-        Laser l {p, direction, t};
+        std::vector<Position> positions;
+        std::vector<int> directions;
 
-        l.changerPosition(2);
+        positions.push_back(p);
+        directions.push_back(direction);
 
-        REQUIRE_EQ(l.position().y(), p.y() + 1);
+
+        Laser l {positions, directions, t};
+
+        l.changerPosition(2,0);
+
+        REQUIRE_EQ(l.position(0).y(), p.y() + 1);
     }
 
     SUBCASE ("Le changement de direction fonctionne correctement") {
@@ -147,11 +230,17 @@ TEST_CASE ("Les operations sur le laser fonctionnent parfaitement") {
         int direction = 1; // vers l'est
         Terrain *t;
 
-        Laser l {p, direction, t};
+        std::vector<Position> positions;
+        std::vector<int> directions;
 
-        l.changerDirection(2);
+        positions.push_back(p);
+        directions.push_back(direction);
 
-        REQUIRE_EQ(l.direction(), 2);
+        Laser l {positions, directions, t};
+
+        l.changerDirection(2,0);
+
+        REQUIRE_EQ(l.direction(0), 2);
     }
 
     SUBCASE ("peutAvancer fonctionne correctement") {
@@ -159,9 +248,15 @@ TEST_CASE ("Les operations sur le laser fonctionnent parfaitement") {
         int direction = 1; // vers l'est
         Terrain *t;
 
+        std::vector<Position> positions;
+        std::vector<int> directions;
+
+        positions.push_back(p);
+        directions.push_back(direction);
+
         t->charger("testTerrainMursPleins1.txt");
 
-        Laser l {p, direction, t};
+        Laser l {positions, directions, t};
 
         REQUIRE_EQ(l.peutAvancer(), true);
     }
@@ -171,15 +266,21 @@ TEST_CASE ("Les operations sur le laser fonctionnent parfaitement") {
         int direction = 1; // vers l'est
         Terrain *t;
 
+        std::vector<Position> positions;
+        std::vector<int> directions;
+
+        positions.push_back(p);
+        directions.push_back(direction);
+
         t->charger("testTerrainMursPleins1.txt");
 
-        Laser l {p, direction, t};
+        Laser l {positions, directions, t};
 
         int nbCibles = l.terrain()->nbCibles();
 
-        l.detruitCible();
+        l.detruitCibles();
 
-        REQUIRE_EQ(l.terrain()->estCible(l.position()), false);
+        REQUIRE_EQ(l.terrain()->estCible(l.position(0)), false);
         REQUIRE_EQ(l.terrain()->nbCibles(), nbCibles - 1);
 
     }

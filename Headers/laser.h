@@ -10,6 +10,7 @@
 #define laser_h
 
 
+#include <vector>
 #include "terrain.h"
 #include "position.h"
 
@@ -29,7 +30,7 @@ public:
      * @param [in] direction - direction dans laquelle se deplace le laser
      * @param [in] t - pointeur sur le terrain
      */
-    Laser(const Position &pos, int direction, Terrain *t);
+    Laser(const std::vector<Position> &pos, const std::vector<int> directions, Terrain *t);
 
     /**
      * Destructeur de laser : detruit le terrain
@@ -55,17 +56,25 @@ public:
     // -------------------- Methodes de rappel --------------------
 
     /**
-     * Retourne la position du laser
-     * @return Position - position actuelle du laser
+     * Retourne les positions du laser
+     * @return vector<Position> - positions actuelles du laser
      */
-    Position position() const;
+    std::vector<Position> positions() const;
+
+    /**
+     * Retourne la position du laser a l'indice i du tableau de positions d_positions
+     * @param [in] i - indice de la position a retourner
+     * @return Position - position a retourner (position actuelle a l'indice i du laser)
+     */
+    Position position(int i) const;
 
     /**
      * Retourne la direction du laser :
      * 0 1 2 3 (sens horaire)
+     * @param [in] i - indice
      * @return int - direction
      */
-    int direction() const;
+    int direction(int i) const;
 
     /**
      * Retourne le nombre de points que le laser a recoltes
@@ -84,35 +93,37 @@ public:
     /**
      * Change la position du laser selon une direction
      * @param [in]  direction - sens du laser
+     * @param [in] indice - indice de la position a modifier dans le vecteur d_positions
      */
-    void changerPosition(int direction);
+    void changerPosition(int direction, int indice);
 
     /**
-     * Deplace le laser d'une case vers le haut
+     * Deplace le trait d'un laser d'une case vers le haut
      */
-    void deplacementHaut();
+    void deplacementHaut(int indice);
 
     /**
      * Deplace le laser d'une case vers la droite
      */
-    void deplacementDroite();
+    void deplacementDroite(int indice);
 
     /**
      * Deplace le laser d'une case vers le bas
      */
-    void deplacementBas();
+    void deplacementBas(int indice);
 
     /**
      * Deplace le laser d'une case vers la gauche
      */
-    void deplacementGauche();
+    void deplacementGauche(int indice);
 
 
     /**
      * Change la direction du laser selon un miroir
      * @param [in] miroir - '/' ou '\'
+     * @param [in] indice - indice de la position et de la direction a modifier dans les vecteurs d_positions et d_directions
      */
-    void changerDirection(int miroir);
+    void changerDirection(int miroir, int indice);
 
 
 
@@ -125,15 +136,16 @@ public:
     /**
      * Le laser va detruire la cible sur laquelle il se trouve
      */
-    void detruitCible();
+    void detruitCibles();
 
 
 
 
 private:
     Terrain* d_terrain;     // terrain sur lequel evolue le laser : le laser questionne le terrain
-    Position d_pos;         // position courante du laser
-    int d_direction;        // direction du laser : 0,1,2,3 (sens horaire)
+    std::vector<Position> d_positions;         // positions courantes du laser
+    std::vector<int> d_directions;             // directions du laser : 0,1,2,3 (sens horaire)
+    //int d_direction;        // direction du laser : 0,1,2,3 (sens horaire)
     int d_nbPoints;         // nombre de points que le laser a recoltes
 };
 
