@@ -64,7 +64,7 @@ public:
     /**
      * Indique si la partie est terminee
      * La parte est terminee si le laser ne peut plus bouge, ou s'il a detruit toutes les cibles
-     * @return
+     * @return bool - si le jeu est fini
      */
     virtual bool fin() const override ;
 
