@@ -37,45 +37,35 @@ TEST_CASE("Les opérations du terrainMursPleins sont correctes")
         p = {8,0};
         REQUIRE_EQ(t.positionValide(p),false);
     }
-
-
+    
     SUBCASE("le placement d'element est correct") {
         TerrainMursPleins t{};
         t.charger("../testTerrainMursPleins1.txt");
 
         Position position{1,0};
         Position position2{4,2};
+        Position position3{1,2};
         t.placeElement(MUR,position);
         t.placeElement(CIBLE,position2);
+        t.placeElement(MIROIR2,position3);
 
         REQUIRE_EQ(t.estMur(position),true);
         REQUIRE_EQ(t.estCible(position2),true);
+        REQUIRE_EQ(t.typeMiroir(position3), MIROIR2);
     }
 
+  SUBCASE("la prochaine case est correctement identifiee") {
+        TerrainMursPleins t{};
+        t.charger("../testTerrainMursPleins1.txt");
 
-   //------------------------- A verifier les tests ----------------
-//    SUBCASE("la prochaine case est correctement identifiee") {
-//        TerrainMursPleins t{};
-//        t.charger("../testTerrainMursPleins1.txt");
-//
-//        Position position{1,0};
-//        Position position2{1,2};
-//        t.placeElement(MUR,position);
-//        t.placeElement(MIROIR2,position2);
-//
-//        REQUIRE_EQ(t.estMur(position), true);
-//        REQUIRE_EQ(t.estMur(position2), false);
-//        REQUIRE_EQ(t.typeMiroir(position2), MIROIR2);
-//        REQUIRE_EQ(t.estMur( Position { 2,2 }), false);
-//
-//        Position p{1,1};
-//        REQUIRE_EQ(t.caseSuivanteEstLibre(p,0),false);
-//        REQUIRE_EQ(t.caseSuivanteEstLibre(p,1),true);
-//        REQUIRE_EQ(t.caseSuivanteEstLibre(p,2),false);
-//        REQUIRE_EQ(t.caseSuivanteEstLibre(p,3),true);
-//    }
-//
-    SUBCASE("destrucition cible marche"){
+        Position p{1,1};
+        REQUIRE_EQ(t.caseSuivanteEstLibre(p,0),true);
+        REQUIRE_EQ(t.caseSuivanteEstLibre(p,1),true);
+        REQUIRE_EQ(t.caseSuivanteEstLibre(p,2),true);
+        REQUIRE_EQ(t.caseSuivanteEstLibre(p,3),false);
+    }
+
+    SUBCASE("destruction cible marche"){
         TerrainMursPleins t{};
         t.charger("../testTerrainMursPleins1.txt");
 
@@ -99,10 +89,6 @@ TEST_CASE("Les opérations du terrainMursPleins sont correctes")
         REQUIRE_EQ(t.typeMiroir(position2),2);
     }
 
-//    SUBCASE("saisir la position d'un mur fonctionne"){
-//
-//    }
-//
     SUBCASE("la methode charger fonctionne"){
         TerrainMursPleins t{};
         t.charger("../testTerrainMursPleins2.txt");
