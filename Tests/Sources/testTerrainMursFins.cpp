@@ -18,7 +18,7 @@ TEST_CASE("Les opérations du terrainMursFins sont correctes")
 
     SUBCASE("position libre fonctionne") {
         TerrainMursFins t{};
-        t.charger("testTerrainMursFins1.txt");
+        t.charger("../testTerrainMursFins1.txt");
 
         Position p{1,1};
         REQUIRE_EQ(t.positionLibre(p),true);
@@ -26,7 +26,7 @@ TEST_CASE("Les opérations du terrainMursFins sont correctes")
 
     SUBCASE("position valide fonctionne") {
         TerrainMursFins t{};
-        t.charger("testTerrainMursFins1.txt");
+        t.charger("../testTerrainMursFins1.txt");
 
         Position p{1,1};
         REQUIRE_EQ(t.positionValide(p),true);
@@ -36,10 +36,10 @@ TEST_CASE("Les opérations du terrainMursFins sont correctes")
 
     SUBCASE("le placement d'element est correct") {
         TerrainMursFins t{};
-        t.charger("testTerrainMursFins1.txt");
+        t.charger("../testTerrainMursFins1.txt");
 
         Position position{1,0};
-        Position position2{4,2};
+        Position position2{1,1};
         t.placeElement(MIROIR1,position);
         t.placeElement(CIBLE,position2);
 
@@ -49,8 +49,9 @@ TEST_CASE("Les opérations du terrainMursFins sont correctes")
 
 
     SUBCASE("destrucition cible marche") {
-        int longueur = 2, hauteur = 2, nbMiroirs = 1, nbSemiMiroirs = 0, nbCibles = 1;
-        TerrainMursFins t{longueur, hauteur, nbMiroirs, nbSemiMiroirs, nbCibles};
+
+        TerrainMursFins t{};
+        t.charger("../testTerrainMursFins1.txt");
 
         Position position{1,0};
         t.placeElement(CIBLE,position);
@@ -60,8 +61,8 @@ TEST_CASE("Les opérations du terrainMursFins sont correctes")
     }
 
     SUBCASE("type miroir marche") {
-        int longueur = 2, hauteur = 2, nbMiroirs = 1, nbSemiMiroirs = 0, nbCibles = 1;
-        TerrainMursFins t{longueur, hauteur, nbMiroirs, nbSemiMiroirs, nbCibles};
+        TerrainMursFins t{};
+        t.charger("../testTerrainMursFins1.txt");
 
         Position position{1,0};
         t.placeElement(MUR,position);
@@ -73,7 +74,7 @@ TEST_CASE("Les opérations du terrainMursFins sont correctes")
     }
 
 
-    // --------------- A REFAIRE CAR COPIE COLLE DE TESTTERRAINMURSPLEINS -----------------
+//    // --------------- A REFAIRE CAR COPIE COLLE DE TESTTERRAINMURSPLEINS -----------------
     SUBCASE("la methode charger fonctionne"){
         TerrainMursFins t{};
         t.charger("../testTerrainMursFins1.txt");
@@ -97,7 +98,7 @@ TEST_CASE("Les opérations du terrainMursFins sont correctes")
         REQUIRE_EQ(t.estMurDroit(p),false);
         REQUIRE_EQ(t.estMurBas(p),false);
         REQUIRE_EQ(t.estMurGauche(p),false);
-        REQUIRE_EQ(t.positionLibre(p),true);
+        REQUIRE_EQ(t.positionLibre(p),false);
         REQUIRE_EQ(t.estCible(p),true);
 
         p = {1,0};
@@ -118,8 +119,8 @@ TEST_CASE("Les opérations du terrainMursFins sont correctes")
 
      }
 
-    SUBCASE("saisir la position d'un mur fonctionne") {
-
-    }
+//    SUBCASE("saisir la position d'un mur fonctionne") {
+//
+//    }
 
 }

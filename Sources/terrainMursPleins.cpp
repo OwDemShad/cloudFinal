@@ -21,11 +21,11 @@ bool TerrainMursPleins::caseSuivanteEstLibre(const Position &pos, int direction)
             else return !estMur(Position{pos.x(), pos.y() - 1});
 
         case 1 :
-            if(pos.x() == d_longueur) return false;
+            if(pos.x() == d_longueur-1) return false;
             else return !estMur(Position{pos.x() + 1, pos.y()});
 
         case 2 :
-            if(pos.y() == d_hauteur) return false;
+            if(pos.y() == d_hauteur-1) return false;
             else return !estMur(Position{pos.x(), pos.y() + 1});
 
         case 3 :
