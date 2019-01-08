@@ -1,11 +1,3 @@
-//
-//  terrain.cpp
-//  Laser
-//
-//  Created by Thibaud B. on 14/11/2018.
-//  Copyright © 2018 Thibaud B. All rights reserved.
-//
-
 #include <fstream>
 #include "../Headers/terrain.h"
 
@@ -25,9 +17,7 @@ Terrain::Terrain(int longueur, int hauteur, int nbMiroirs, int nbSemiMiroirs, in
 
 Terrain::~Terrain()
 {
-    //for(int i = 0; i < d_hauteur; ++i)
-      //  for (int j = 0; j < d_longueur; j++)
-           // delete d_terrain[i][j];
+
 }
 
 std::vector<std::vector<Case>>& Terrain::terrain()

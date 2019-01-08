@@ -1,7 +1,3 @@
-//
-// Created by Dorian on 01/12/2018.
-//
-
 #include "../Headers/affichage.h"
 #include "../Headers/graphics.h"
 
@@ -10,7 +6,7 @@ const int DECALAGEY = 50;
 
 Affichage::Affichage(int longueur, int hauteur) : d_longueur{longueur}, d_hauteur{hauteur}
 {
-    // ici mettre les methodes de winbgi pour pouvoir creer la fenetre
+
 }
 
 void Affichage::traceCible(const Position &pos, int radiusDivizer) const

@@ -1,7 +1,3 @@
-//
-// Created by Dorian on 01/12/2018.
-//
-
 #include "../Headers/terrainMursPleins.h"
 #include "../Headers/case.h"
 #include <fstream>
